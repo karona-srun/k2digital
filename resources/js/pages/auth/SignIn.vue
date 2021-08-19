@@ -1,0 +1,45 @@
+<template>
+  <div class="text-center">
+    <form class="form-signin">
+      <h1 class="h3 mb-3 font-weight-normal">Please sign in</h1>
+      <div class="mb-3">
+        <label class="float-left form-label">Email address</label>
+        <input
+          type="email"
+          id="inputEmail"
+          class="form-control"
+          placeholder="Email address"
+          required=""
+          autofocus=""
+        />
+      </div>
+      <div class="mb-3">
+        <label class="float-left form-label">Password</label>
+        <input
+          type="password"
+          id="inputPassword"
+          class="form-control"
+          placeholder="Password"
+          required=""
+        />
+      </div>
+      <div class="checkbox mb-3 float-left">
+        <label>
+          <input type="checkbox" value="remember-me" /> Remember me
+        </label>
+      </div>
+      <button class="btn btn-lg btn-primary btn-block" type="submit">
+        Sign in
+      </button>
+    </form>
+  </div>
+</template>
+<script>
+export default {
+  name: "SignIn",
+  data() {
+      return{
+      }
+  }
+};
+</script>
