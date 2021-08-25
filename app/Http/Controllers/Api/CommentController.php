@@ -3,10 +3,12 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Http\Resources\CommentResource;
 use App\Models\Comment;
 use App\Models\Post;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 
 class CommentController extends Controller
@@ -58,8 +60,8 @@ class CommentController extends Controller
         $comment = new Comment([
             'comments' => $request->comment,
             'post_id' => $request->post_id,
-            'creator' => 1,
-            'updator' => 1
+            'created_by' => Auth::user()->id,
+            'updated_by' => Auth::user()->id,
         ]);
         $comment->save();
 
@@ -98,7 +100,7 @@ class CommentController extends Controller
         ->get();
 
         return response()->json([
-            'data' => $comment
+            'data' => CommentResource::collection($comment)
         ]);
     }
 
@@ -129,7 +131,7 @@ class CommentController extends Controller
 
         $comment = Comment::find($id);
         $comment->comments = $request->comment;
-        $comment->updator = 1;
+        $comment->updated_by = Auth::user()->id;
         $comment->save();
 
         return response()->json([

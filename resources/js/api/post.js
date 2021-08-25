@@ -2,41 +2,45 @@
     /*
 	Imports the Roast API URL from the config.
 */
-import { ROAST_CONFIG } from '../config.js';
+import CONFIG from '../config.js';
 
 export default {
+    FetchPosts: function( )
+    {
+        return axios.get( CONFIG.setAPIURL() + '/fetch-posts');
+    },
     LoadPostPublic: function( )
     {
-        return axios.get( ROAST_CONFIG.API_URL + '/posts');
+        return axios.get( CONFIG.setAPIURL() + '/posts', { headers: CONFIG.responseHeaders() });
     },
 
     LoadPosts: function( )
     {
-        return axios.get( ROAST_CONFIG.API_URL + '/posts/all');
+        return axios.get( CONFIG.setAPIURL() + '/posts/all', { headers: CONFIG.responseHeaders() });
     },
 
     AddNewPost: function( slug )
     {
-        return axios.post( ROAST_CONFIG.API_URL + '/posts', slug );
+        return axios.post( CONFIG.setAPIURL() + '/posts', slug, { headers: CONFIG.responseHeaders() } );
     },
 
     FindPost: function( id ){
-        return axios.get( ROAST_CONFIG.API_URL + '/posts/' + id);
+        return axios.get( CONFIG.setAPIURL() + '/posts/' + id, { headers: CONFIG.responseHeaders() });
     },
 
     UpdatePost: function( slug ){
-        return axios.patch( ROAST_CONFIG.API_URL + '/posts/' + slug.id, slug);
+        return axios.patch( CONFIG.setAPIURL() + '/posts/' + slug.id, slug, { headers: CONFIG.responseHeaders() });
     },
 
     DeletePost: function( id ){
-		return axios.delete( ROAST_CONFIG.API_URL + '/posts/' + id );
+		return axios.delete( CONFIG.setAPIURL() + '/posts/' + id, { headers: CONFIG.responseHeaders() } );
 	},
 
 	postLikePost: function( slug ){
-		return axios.post( ROAST_CONFIG.API_URL + '/posts/' + slug + '/like' );
+		return axios.post( CONFIG.setAPIURL() + '/posts/' + slug + '/like',{ headers: CONFIG.responseHeaders() } );
 	},
 
 	deleteLikePost: function( slug ){
-		return axios.delete( ROAST_CONFIG.API_URL + '/posts/' + slug + '/unlike' );
+		return axios.delete( CONFIG.setAPIURL() + '/posts/' + slug + '/unlike', { headers: CONFIG.responseHeaders() } );
 	}
 }

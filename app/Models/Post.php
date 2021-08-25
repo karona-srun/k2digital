@@ -14,8 +14,8 @@ class Post extends Model
         'post', 
         'likes',
         'privacy',
-        'creator',
-        'updator'
+        'created_by',
+        'updated_by'
     ]; 
 
     /**
@@ -37,12 +37,12 @@ class Post extends Model
 
     public function creator()
     {
-        return $this->belongsTo('App\Models\User','creator');
+        return $this->belongsTo(User::class,'created_by');
     }
 
     public function updator()
     {
-        return $this->belongsTo('App\Models\User','updator');
+        return $this->belongsTo(User::class,'updated_by');
     }
 
     protected function serializeDate(DateTimeInterface $date)

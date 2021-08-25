@@ -5,10 +5,18 @@
       <div class="col-lg-6">
         <div class="row justify-content-center">
           <div class="col-md-12 mb-5 text-center">
-            <h2 class="text-decoration-underline">
+            <h2 class="">
               សូមស្វាគមន៍ការចូលមកកាន់ K2 ឌីជីថល
             </h2>
           </div>
+
+          <div class="col-md-12 mb-5 text-center" v-if="posts == ''">
+            <div class="crop justify-content-center ">
+                <img src="https://liferay-support.zendesk.com/hc/article_attachments/360032812612/no-web-content-found.png" alt="" srcset="">
+            </div>
+            <h4 class="mt-3">លោកអ្នកមិនទាន់មានការបង្ហោះអត្ថបទនៅឡើយទេ...</h4>
+          </div>
+
           <div class="col-md-12 mb-5">
             <div class="accordion accordion-flush" id="accordionFlushExample">
               <div class="accordion-item mb-3" v-for="(post, i) in posts" :key="i">
@@ -17,13 +25,13 @@
                     <div>
                       <div class="user-info">
                         <div class="user-info__img">
-                          <img :src="isLoaded || imageURL == null
-                                ? imageLoadingURL
-                                : imageURL
-                            " class="rounded-100 mx-auto d-block" alt="User Image" />
+                          <img :src="post.avatar != ''
+                                ? post.avatar_base_url +'/'+ post.avatar
+                                : post.avatar_base_url"
+                            class="rounded-100 mx-auto d-block" alt="User Image" />
                         </div>
                         <div class="user-info__basic ml-3">
-                          <h6 class="mb-0">Kiran Acharya</h6>
+                          <h6 class="mb-0">{{ post.creater }}</h6>
                           <p class="text-dark text-small mb-0">
                             <i :class="
                                 post.created_at != post.updated_at
@@ -46,7 +54,7 @@
                             }}
                           </span>
                         </div>
-                        <div class="btn-group dropstart open pull-right">
+                        <div class="btn-group dropstart open pull-right" v-if="post.creater_id == auth.id">
                           <span class="btn btn-defualt dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
                             <i class="bi bi-three-dots-vertical text-dark"></i>
                           </span>
@@ -62,7 +70,7 @@
                           </ul>
                         </div>
                       </div>
-                      <read-more class="mb-3" more-str="អាន​បន្ថែម" :text="post.post" link="#" less-str="អានតិច"
+                      <read-more class="mb-3 text-break" more-str="អាន​បន្ថែម" :text="post.post" link="#" less-str="អានតិច"
                         :max-chars="360"></read-more>
                     </div>
                   </div>
@@ -95,17 +103,20 @@
                   <div class="accordion-body" v-for="(comment, i) in comments" :key="i">
                     <div class="media">
                       <a class="pull-left" href="#">
-                        <img class="flex-shrink-0 me-3 rounded-circle" width="40px" height="40px" :src="imageLoadingURL"
+                        <img class="flex-shrink-0 me-3 rounded-circle" width="40px" height="40px" 
+                          :src="comment.avatar != ''
+                                ? comment.avatar_base_url +'/'+ comment.avatar
+                                : comment.avatar_base_url"
                           alt="photo" />
                       </a>
                       <div class="media-body">
                         <p class="media-heading text-bold">
-                          John Napha
+                          <strong>{{ comment.creater }}</strong>
                           <span class="text-small">
                             <small>បានចេញមតិនៅ​ {{ comment.created_at }}</small>
                           </span>
                           <span>
-                            <div class="btn-group dropstart">
+                            <div class="btn-group dropstart"  v-if="comment.creater_id == auth.id">
                               <span class="btn btn-defualt dropdown-toggle" data-bs-toggle="dropdown"
                                 aria-expanded="false">
                                 <i class="bi bi-three-dots-vertical text-dark"></i>
@@ -254,15 +265,16 @@
         modalBodyText: '',
         modalType: '',
         modalId: '',
-        modalPrivary: ''
+        modalPrivary: '',
       };
     },
     computed: {
-      ...mapGetters(["posts", "comments"]),
+      ...mapGetters(["posts", "comments","auth"]),
     },
     created() {
       this.LoadPosts(),
-      this.LoadComments()
+      this.LoadComments(),
+      this.Me()
     },
     methods: {
       ...mapActions([
@@ -274,6 +286,7 @@
         "FindCommentByPost",
         "RemoveComment",
         "UpdateComment",
+        "Me"
       ]),
       onClickDeletePost(id) {
         this.RemovePost(id);
@@ -335,6 +348,7 @@
         this.AddNewComment(data);
         this.comment = "";
         this.LoadPosts();
+        this.LoadComments();
       },
       toggleModalConfirmEdit(modalType,modalId,titleText,bodyText,privacy){
         this.modalTitleText = titleText;
@@ -362,3 +376,14 @@
     },
   };
 </script>
+<style>
+  .crop {
+    height: 180px;
+    overflow: hidden;
+  }
+  .crop img {
+    width: 450px;
+    height: 300px;
+    margin: -51px 0 -51px -51px;
+  }
+</style>

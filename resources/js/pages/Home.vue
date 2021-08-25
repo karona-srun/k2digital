@@ -5,7 +5,7 @@
       <div class="col-lg-6">
         <div class="row justify-content-center">
           <div class="col-md-12 mb-5 text-center">
-            <h2 class="text-decoration-underline">
+            <h2 class="">
               សូមស្វាគមន៍ការចូលមកកាន់ K2 ឌីជីថល
             </h2>
           </div>
@@ -17,13 +17,13 @@
                     <div>
                       <div class="user-info">
                         <div class="user-info__img">
-                          <img :src="isLoaded || imageURL == null
-                                ? imageLoadingURL
-                                : imageURL
+                          <img :src="post.avatar != ''
+                                ? post.avatar_base_url +'/'+ post.avatar
+                                : post.avatar_base_url
                             " class="rounded-100 mx-auto d-block" alt="User Image" />
                         </div>
                         <div class="user-info__basic ml-3">
-                          <h6 class="mb-0">Kiran Acharya</h6>
+                          <h6 class="mb-0">{{ post.creater }}</h6>
                           <p class="text-dark text-small mb-3">
                             <i :class="
                                 post.created_at != post.updated_at
@@ -37,7 +37,7 @@
                             }}
                           </p>
                         </div>
-                        <div class="btn-group dropstart open pull-right">
+                        <div class="btn-group dropstart open pull-right" v-if="auth  && auth.id == post.creater_id ">
                           <span class="btn btn-defualt dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
                             <i class="bi bi-three-dots-vertical text-dark"></i>
                           </span>
@@ -53,7 +53,7 @@
                           </ul>
                         </div>
                       </div>
-                      <read-more class="mb-3" more-str="អាន​បន្ថែម" :text="post.post" link="#" less-str="អានតិច"
+                      <read-more class="mb-3 text-break" more-str="អាន​បន្ថែម" :text="post.post" link="#" less-str="អានតិច"
                         :max-chars="360"></read-more>
                     </div>
                   </div>
@@ -78,7 +78,7 @@
                 <div :id="'flush-collapseOne' + i" class="accordion-collapse collapse" 
                   :aria-labelledby="'flush-headingOne' + i" data-bs-parent="#accordionFlushExample">
                   <form class="mb-3 mt-3" @submit.prevent="onClickSubmitComment(post.id)">
-                    <textarea rows="3" v-model="comment" class="text-small form-control"></textarea>
+                    <textarea rows="3" v-model="comment" class="text-small form-control" required></textarea>
                     <button type="submit" class="btn btn-sm btn-outline-app text-small mt-3">
                       មតិយោបល់
                     </button>
@@ -86,17 +86,20 @@
                   <div class="accordion-body" v-for="(comment, i) in comments" :key="i">
                     <div class="media">
                       <a class="pull-left" href="#">
-                        <img class="flex-shrink-0 me-3 rounded-circle" width="40px" height="40px" :src="imageLoadingURL"
+                        <img class="flex-shrink-0 me-3 rounded-circle" width="40px" height="40px" 
+                          :src="comment.avatar != ''
+                                ? comment.avatar_base_url +'/'+ comment.avatar
+                                : comment.avatar_base_url"
                           alt="photo" />
                       </a>
                       <div class="media-body">
                         <p class="media-heading text-bold">
-                          John Napha
+                          <strong>{{ comment.creater }}</strong>
                           <span class="text-small">
                             <small>បានចេញមតិនៅ​ {{ comment.created_at }}</small>
                           </span>
                           <span>
-                            <div class="btn-group dropstart">
+                            <div class="btn-group dropstart" v-if="auth && auth.id == comment.creater_id ">
                               <span class="btn btn-defualt dropdown-toggle" data-bs-toggle="dropdown"
                                 aria-expanded="false">
                                 <i class="bi bi-three-dots-vertical text-dark"></i>
@@ -233,9 +236,6 @@
     data() {
       return {
         showModel: false,
-        isLoaded: true,
-        imageLoadingURL:
-          "https://cdn.iconscout.com/icon/free/png-512/person-with-laptop-male-1597386-1354342.png",
         imageURL: null,
         comment: "",
         active: false,
@@ -249,7 +249,7 @@
       };
     },
     computed: {
-      ...mapGetters(["posts", "comments"]),
+      ...mapGetters(["posts", "comments","auth"]),
     },
     created() {
       this.LoadPostPublic(),
@@ -262,7 +262,7 @@
         "RemovePost",
         "UpdatePost",
         "AddNewComment",
-        "FindCommentByPost",
+        "FetchCommentByPost",
         "RemoveComment",
         "UpdateComment",
       ]),
@@ -296,7 +296,7 @@
       },
       onClickComments(id) {
         this.comment = "";
-        this.FindCommentByPost(id);
+        this.FetchCommentByPost(id);
       },
       onSubmitUpdateComment(id)
       {

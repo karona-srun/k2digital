@@ -3,10 +3,13 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Http\Resources\PostResource;
 use App\Models\Post;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
+
 
 class PostController extends Controller
 {
@@ -20,10 +23,8 @@ class PostController extends Controller
         $posts = Post::with('comments')->orderBy('created_at','desc')
         ->where('privacy',1)
         ->get();
-
-    
         return response()->json([
-            'data' => $posts
+            'data' => PostResource::collection($posts)
         ]);
     }
 
@@ -32,7 +33,7 @@ class PostController extends Controller
         $posts = Post::with('comments')->orderBy('created_at','desc')
         ->get();
         return response()->json([
-            'data' => $posts
+            'data' => PostResource::collection($posts)
         ]);
     }
 
@@ -59,13 +60,9 @@ class PostController extends Controller
         ]);
     
         if($validation->fails()){
-            $data = [
-                'status' => 'ERROR',
-                'error' =>   $validation->errors()
-            ];
-
             return response([
-                'data' => $data,
+                'status' => 'error',
+                'error' =>   $validation->errors()
             ], 404);
     
         }  
@@ -74,12 +71,13 @@ class PostController extends Controller
             'post' => $request->post,
             'privacy' => $request->privacy,
             'likes' => 0,
-            'creator' => 1,
-            'updator' => 1
+            'created_by' => Auth::user()->id,
+            'updated_by' => Auth::user()->id,
         ]);
         $post->save();
 
         return response()->json([
+            'status' => 'success',
             'message' => 'The post successfully added',
             'data' => $post
         ]);
@@ -146,6 +144,7 @@ class PostController extends Controller
             $post = Post::findOrFail($id);
             $post->post = $request->post;
             $post->privacy = $request->privacy;
+            $post->updated_by = Auth::user()->id;
             $post->save();
         } catch (ModelNotFoundException $e) {
             $data = [

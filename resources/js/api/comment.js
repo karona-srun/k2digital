@@ -2,34 +2,41 @@
     /*
 	Imports the Roast API URL from the config.
 */
-import { ROAST_CONFIG } from '../config.js';
-
+import CONFIG  from '../config.js';
 export default {
+
+    FetchComments: function( )
+    {
+        return axios.get( CONFIG.setAPIURL() + '/fetch-comments');
+    },
+
+    FetchCommentByPost: function( id ){
+        return axios.get( CONFIG.setAPIURL() + '/comment/find-comment-by-post/' + id);
+    },
 
     LoadComments: function( )
     {
-        return axios.get( ROAST_CONFIG.API_URL + '/comments');
+        return axios.get( CONFIG.setAPIURL() + '/comments', { headers: CONFIG.responseHeaders() });
     },
 
     AddNewComment: function( slug )
     {
-        return axios.post( ROAST_CONFIG.API_URL + '/comments', slug );
+        return axios.post( CONFIG.setAPIURL() + '/comments', slug, { headers: CONFIG.responseHeaders() });
     },
 
     FindCommentByPost: function( id ){
-        return axios.get( ROAST_CONFIG.API_URL + '/comments/find-comment-by-post/' + id);
+        return axios.get( CONFIG.setAPIURL() + '/comments/find-comment-by-post/' + id, { headers: CONFIG.responseHeaders() });
     },
 
     FindComment: function( id ){
-        return axios.get( ROAST_CONFIG.API_URL + '/comments/' + id);
+        return axios.get( CONFIG.setAPIURL() + '/comments/' + id, { headers: CONFIG.responseHeaders() });
     },
 
     UpdateComment: function( slug ){
-        return axios.patch( ROAST_CONFIG.API_URL + '/comments/' + slug.id, slug);
+        return axios.patch( CONFIG.setAPIURL() + '/comments/' + slug.id, slug, { headers: CONFIG.responseHeaders() });
     },
 
     DeleteComment: function( id ){
-        console.log("api DeleteComment"+ id)
-		return axios.delete( ROAST_CONFIG.API_URL + '/comments/' + id );
+		return axios.delete( CONFIG.setAPIURL() + '/comments/' + id , { headers: CONFIG.responseHeaders() });
 	}
 }

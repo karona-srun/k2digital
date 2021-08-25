@@ -2,7 +2,7 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\Api\AuthController;
+use App\Http\Controllers\API\AuthController;
 use App\Http\Controllers\Api\UserController;
 use App\Http\Controllers\Api\PostController;
 use App\Http\Controllers\Api\CommentController;
@@ -18,10 +18,21 @@ use App\Http\Controllers\Api\CommentController;
 |
 */
 
-Route::post('sign-in', [App\Http\Controllers\API\AuthController::class, 'signin'])->name('sign-in');
-Route::post('sign-up', [App\Http\Controllers\API\AuthController::class, 'signup'])->name('sign-up');
+Route::group(['prefix' => 'auth'], function() {
+Route::post('sign-in', [AuthController::class, 'signin']);
+Route::post('sign-up', [AuthController::class, 'signup']);
+  Route::group(['middleware' => 'auth:api'], function() {
+    Route::get('me', [AuthController::class,'me']);
+    Route::post('sign-out', [AuthController::class, 'signout']);
+  });
+});
 
 
+Route::get('/fetch-posts', [PostController::class, 'index']);
+Route::get('/fetch-comments', [CommentController::class, 'index']);
+Route::get('/comment/find-comment-by-post/{id}','Api\CommentController@findCommentByPost');
+
+Route::group(['middleware' => 'auth:api'], function() {
 /*
   |-------------------------------------------------------------------------------
   |  Users
@@ -66,6 +77,7 @@ Route::resource('comments', 'Api\CommentController');
 
 
 
-Route::middleware('auth:api')->get('/user', function (Request $request) {
-    return $request->user();
+// Route::middleware('auth:api')->get('/user', function (Request $request) {
+//     return $request->user();
+// });
 });

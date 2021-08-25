@@ -54,7 +54,7 @@
             </li>
           </ul>
           <div class="d-flex">
-            <button
+            <button v-if="isLoggedIn"
               class="btn btn-outline-app me-2"
               type="button"
               data-toggle="modal"
@@ -62,20 +62,37 @@
             >
               <i class="bi bi-plus"></i> បង្ហោះ
             </button>
-            <button
-              @click.prevent="onClickSignIn"
-              class="btn btn-default me-2"
+            <button v-if="!isLoggedIn"
+              class="btn btn-outline-app me-2"
               type="button"
+              @click.prevent="alertMessage"
             >
-              <i class="bi bi-arrow-bar-right"></i> ចូលគណនី
+              <i class="bi bi-plus"></i> បង្ហោះ
             </button>
-            <button
-              @click.prevent="onClickSignUp"
-              class="btn btn-app"
-              type="button"
-            >
-              <i class="bi bi-person-plus"></i> ចុះឈ្មោះ
-            </button>
+            <span v-if="isLoggedIn">
+              
+              <img :src="auth.avatar" class="rounded-100 avatar ml-3" width="20px" alt="avatar" srcset="">
+              <span class="mr-3 text-blod">{{ auth.first_name }} {{ auth.last_name }}</span>
+              
+              <button @click.prevent="onSubmitSignOut" class="btn btn-app me-2"
+                      type="button"><i class="bi bi-arrow-bar-left"></i>ចាកចេញ</button>
+            </span>
+            <span v-else>
+              <button
+                @click.prevent="onClickSignIn"
+                class="btn btn-default me-2"
+                type="button"
+              >
+                <i class="bi bi-arrow-bar-right"></i> ចូលគណនី
+              </button>
+              <button
+                @click.prevent="onClickSignUp"
+                class="btn btn-app"
+                type="button"
+              >
+                <i class="bi bi-person-plus"></i> ចុះឈ្មោះ
+              </button>
+            </span>
           </div>
         </div>
       </div>
@@ -120,7 +137,7 @@
               </div>
               <div class="md-3">
                 <label for="">អត្ថបទ</label>
-                <textarea rows="5" v-model="post" class="form-control text-small"></textarea>
+                <textarea rows="5" v-model="post" required class="form-control text-small"></textarea>
               </div>
             </div>
             <div class="modal-footer">
@@ -137,7 +154,7 @@
 </template>
 
 <script>
-import { mapActions } from 'vuex'
+import { mapActions, mapGetters } from 'vuex'
 export default {
   data(){
     return {
@@ -145,18 +162,33 @@ export default {
       privacy: 1,
     }
   },
+  computed : {
+    ...mapGetters(["auth"]),
+    isLoggedIn : function(){ return this.$store.getters.isAuthenticated}
+  },
   watch: {
     $route() {
       $("#navbarCollapse").collapse("hide");
     },
   },
+  created() {
+    this.Me()
+  },
   methods: {
-    ...mapActions(["AddNewPost"]),
+    ...mapActions(["AddNewPost","SignOut","Me"]),
     onClickSignIn() {
       this.$router.push("sign-in");
     },
     onClickSignUp() {
       this.$router.push("sign-up");
+    },
+    alertMessage(){
+      this.$message({
+            title: "ជូនដំណឹង!",
+            message:
+              "សូមចូលប្រើប្រាស់ជាមុនសិន ទើបអនុញ្ញាតលោកអ្នកបង្ហោះអត្ថបទបាន!",
+            iconImg: "https://image.flaticon.com/icons/png/512/753/753345.png" // Error icon
+          });
     },
     onClickSubmit() {
       var post = {
@@ -165,25 +197,29 @@ export default {
       };
       var result = this.AddNewPost(post);
       result.then(response => {
-        alert(response);
-        this.clearForm();
+        if(response == "success"){
+          console.log(response);
+          this.$message({
+            title: "អមអរ!",
+            message:
+              "ការបង្ហោះអត្ថបទរបស់អ្នកបានដោយជោគជ័យ!",
+            iconImg: 'https://image.flaticon.com/icons/png/512/189/189677.png', // Success
+          });
+          this.clearForm();
+        }
+        
       })
+    },
+    onSubmitSignOut (){
+      this.SignOut()
+      this.$nextTick(() => {
+        this.$router.push("/");
+      });
     },
 
     clearForm() {
       this.post = '',
       this.privacy = 0;
-
-      this.validations = {
-        post: {
-          is_valid: true,
-          text: ''
-        },
-        privacy: {
-          is_valid: true,
-          number: ''
-        },
-      }
     }
   },
 };
