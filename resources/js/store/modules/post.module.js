@@ -3,7 +3,7 @@ import PostAPI from "../../api/post.js";
 export const posts = {
     state: {
         posts: {},
-        post: []
+        post: {}
     },
 
     getters: {
@@ -13,24 +13,25 @@ export const posts = {
 
     actions: {
         async LoadPostPublic({ commit }) {
-            await PostAPI.LoadPostPublic().then((response) => {
+            await PostAPI.FetchPosts().then((response) => {
                 commit('SET_POSTS', response.data.data);
             }).catch(function () {
                 commit('SET_POSTS', {});
             });
         },
-        LoadPosts({ commit }) {
-            PostAPI.LoadPosts().then((response) => {
+        async LoadPosts({ commit }) {
+            await PostAPI.LoadPosts().then((response) => {
                 commit('SET_POSTS', response.data.data);
             }).catch(function () {
                 commit('SET_POSTS', {});
             });
         },
         
-        async AddNewPost({ commit }, data) {
+        async AddNewPost({ commit,state, dispatch }, data) {
             return await PostAPI.AddNewPost(data).then((response) => {
+                dispatch('LoadPosts')
                 commit('ADD_NEW_POST', response.data.data);
-                return response.data.message;
+                return response.data.status;
             }).catch(function () {
                 commit('ADD_NEW_POST', {});
             });
@@ -46,7 +47,7 @@ export const posts = {
 
         UpdatePost({ commit, state, dispatch }, data) {
             PostAPI.UpdatePost(data).then((response) => {
-                commit('SET_POSTS', response.data.data);
+                commit('UPDATE_POST', response.data.data);
                 dispatch('LoadPosts')
             }).catch(function () {
                 commit('SET_POSTS', {});
@@ -55,7 +56,6 @@ export const posts = {
 
         RemovePost({ commit, state, dispatch }, id) {
             PostAPI.DeletePost(id).then((response) => {
-                console.log(response.data.data)
                 commit('REMOVE_POST', response.data.data);
                 dispatch('LoadPosts')
             }).catch(function () {
@@ -66,15 +66,17 @@ export const posts = {
 
     mutations: {
 
-        SET_POSTS(state, post) {
-            state.posts = post;
+        SET_POSTS(state, posts) {
+            state.posts = posts;
         },
         SET_POST(state, post) {
             state.post = post;
         },
 
         FETCH_POSTS: (state, posts) => state.posts = posts,
-        ADD_NEW_POST: (state, post) => state.posts.unshift(post),
+        ADD_NEW_POST (state, post) {
+            state.post = Object.assign({}, post)
+          },
         UPDATE_POST: (state, payload) => {
             state.posts = state.posts.map(blog => {
                 if (blog.id === payload.id) {

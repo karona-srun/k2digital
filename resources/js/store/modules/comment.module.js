@@ -13,7 +13,7 @@ export const comments = {
 
     actions: {
         async LoadComments({ commit }) {
-            return await CommentAPI.LoadComments().then((response) => {
+            return await CommentAPI.FetchComments().then((response) => {
                 commit('SET_COMMENTS', response.data.data);
                 return response.data.data
             }).catch(function () {
@@ -31,6 +31,14 @@ export const comments = {
             });
         },
 
+        FetchCommentByPost({ commit }, id) {
+            CommentAPI.FetchCommentByPost(id).then((response) => {
+                commit('SET_COMMENTS', response.data.data);
+            }).catch(function () {
+                commit('SET_COMMENTS', {});
+            });
+        },
+
         FindCommentByPost({ commit }, id) {
             CommentAPI.FindCommentByPost(id).then((response) => {
                 commit('SET_COMMENTS', response.data.data);
@@ -41,7 +49,6 @@ export const comments = {
 
         FindComment({ commit }, id) {
             CommentAPI.FindComment(id).then((response) => {
-                console.log(response.data.data)
                 commit('SET_COMMENTS', response.data.data);
             }).catch(function () {
                 commit('SET_COMMENTS', {});

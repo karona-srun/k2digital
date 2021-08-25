@@ -18,11 +18,11 @@ class CreatePostsTable extends Migration
             $table->longText('post');
             $table->integer('likes')->default(0);
             $table->boolean('privacy')->nullable();
-            $table->unsignedInteger('creator')->foreign('user_id')
+            $table->integer('created_by')->foreign('created_by')
                     ->references('id')
                     ->on('users')
                     ->onDelete('cascade');
-            $table->unsignedInteger('updator')->foreign('user_id')
+            $table->integer('updated_by')->foreign('updated_by')
                     ->references('id')
                     ->on('users')
                     ->onDelete('cascade');

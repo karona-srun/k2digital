@@ -10,7 +10,6 @@ h1, h2, h3, h4, h5, h6 {
 
 a,
 button,
-input,
 optgroup,
 select,
 textarea{
@@ -27,6 +26,23 @@ p, .text-small, #readmore, #readless{
     font-family: 'Kantumruy', sans-serif !important;
     margin-bottom: 0 !important;
     line-height: 1.7;
+}
+
+/* Alert Message */
+.m-message-content {
+    min-height: 50px;
+}
+.m-message--title{
+    font-weight: 700 !important;
+}
+.m-message--description, .m-message--title{
+    font-size: .85rem !important;
+    font-family: 'Kantumruy', sans-serif !important;
+    color: #000 !important;
+}
+
+.text-size-sm{
+    font-size: .8rem !important;
 }
 
 .text{
@@ -186,7 +202,6 @@ button.navbar-toggler {
     margin: 0 auto;
 }
 
-button:focus,
 textarea:focus,
 select:focus,
 textarea.form-control:focus,
@@ -202,6 +217,11 @@ input[type="number"]:focus,
 [contenteditable].form-control:focus {
     box-shadow: inset 0 0px 0 rgb(255, 255, 255) !important;
     border-color:#ee2325 !important;
+}
+
+button:focus{
+    box-shadow: inset 0 0px 0 rgb(255, 255, 255) !important;
+    border-color:#ee232600 !important;
 }
 
 .modal-header {
@@ -233,6 +253,13 @@ input[type="number"]:focus,
     height: 15vh;
     margin: 0 auto;
 }
+
+.avatar{
+    width: 38px !important;
+    padding: 2px;
+    border: 1px solid #ee2425 !important;
+}
+
 .accordion-button{
     padding: 0 !important;
 }
@@ -261,7 +288,7 @@ input[type="number"]:focus,
     border: 1px solid #ee2425 !important;
     border: 1px solid;
     padding: 10px;
-    box-shadow: 5px 7px #ee2425;
+    box-shadow: 5px 7px #c32828;
 }
 
 .accordion-button:not(.collapsed)::after {
@@ -281,3 +308,4 @@ input[type="number"]:focus,
 .modal-content {
     border-top: 3px solid #ee2425 !important;
 }
+
