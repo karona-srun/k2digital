@@ -39,7 +39,7 @@ class CONFIG {
     if( process.env.NODE_ENV == 'development' ){
       return 'http://k2digital.test/api';
     }else if( process.env.NODE_ENV == 'production'){
-      return 'http://k2digital.com/api';
+      return 'https://k2digital.karonasrun.com/api';
     }
   }
 
