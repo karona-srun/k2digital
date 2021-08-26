@@ -28,8 +28,8 @@ Route::post('sign-up', [AuthController::class, 'signup']);
 });
 
 
-Route::get('/fetch-posts', [PostController::class, 'index']);
-Route::get('/fetch-comments', [CommentController::class, 'index']);
+Route::get('/fetch-posts', 'API\PostController@index');
+Route::get('/fetch-comments', 'API\CommentController@index');
 Route::get('/comment/find-comment-by-post/{id}','Api\CommentController@findCommentByPost');
 
 Route::group(['middleware' => 'auth:api'], function() {
@@ -42,7 +42,7 @@ Route::group(['middleware' => 'auth:api'], function() {
   | Method:         GET
   | Description:    Gets the authenticated user
   */
-Route::resource('users', 'Api\UserController');
+Route::apiResource('users', 'API\UserController');
  /*
   |-------------------------------------------------------------------------------
   | Get all posts
@@ -52,7 +52,7 @@ Route::resource('users', 'Api\UserController');
   | Method:         GET
   | Description:    Get all posts
   */
-Route::get('/posts/all', 'Api\PostController@postsAll');
+Route::get('/posts/all', 'API\PostController@postsAll');
  /*
   |-------------------------------------------------------------------------------
   | Use default methods
@@ -62,7 +62,7 @@ Route::get('/posts/all', 'Api\PostController@postsAll');
   | Method:         GET, POST, PATCH, DELETE, *
   | Description:    Use default methods
   */
-Route::resource('posts', 'Api\PostController');
+Route::apiResource('posts', 'API\PostController');
 /*
   |-------------------------------------------------------------------------------
   | Use default methods
@@ -73,9 +73,9 @@ Route::resource('posts', 'Api\PostController');
   | Description:    Use default methods
   */
 Route::get('/comments/find-comment-by-post/{id}','Api\CommentController@findCommentByPost');
-Route::resource('comments', 'Api\CommentController');
+Route::apiResource('comments', 'API\CommentController');
 
-Route::post('togglelike', 'Api\LikeController@like');
+Route::post('togglelike', 'API\LikeController@like');
 // Route::middleware('auth:api')->get('/user', function (Request $request) {
 //     return $request->user();
 // });

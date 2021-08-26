@@ -1,0 +1,17 @@
+RewriteEngine on
+RewriteCond %{HTTP_HOST} ^k2digital.karonasrun.com$ [NC,OR]
+RewriteCond %{HTTP_HOST} ^www.k2digital.karonasrun.com$
+RewriteCond %{REQUEST_URI} !public/
+RewriteRule (.*) /public/$1 [L]
+# DO NOT REMOVE. CLOUDLINUX PASSENGER CONFIGURATION BEGIN
+PassengerAppRoot "/home/karovwuc/k2digital.karonasrun.com"
+PassengerBaseURI "/"
+PassengerNodejs "/home/karovwuc/nodevenv/k2digital.karonasrun.com/10/bin/node"
+PassengerAppType node
+PassengerStartupFile resources/js/app.js
+# DO NOT REMOVE. CLOUDLINUX PASSENGER CONFIGURATION END
+# DO NOT REMOVE OR MODIFY. CLOUDLINUX ENV VARS CONFIGURATION BEGIN
+<IfModule Litespeed>
+SetEnv virtual source /home/karovwuc/nodevenv/k2digital.karonasrun.com/10/bin/activate && cd /home/karovwuc/k2digital.karonasrun.com
+</IfModule>
+# DO NOT REMOVE OR MODIFY. CLOUDLINUX ENV VARS CONFIGURATION END

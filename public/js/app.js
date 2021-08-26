@@ -3599,7 +3599,7 @@ var CONFIG = /*#__PURE__*/function () {
     key: "setAPIURL",
     value: function setAPIURL() {
       if (true) {
-        return 'http://k2digital.test/api';
+        return 'https://k2digital.karonasrun.com/api';
       } else {}
     }
   }, {
