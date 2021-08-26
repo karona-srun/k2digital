@@ -37,6 +37,14 @@ export const posts = {
             });
         },
 
+        ToggleLike({ commit }, data){
+            PostAPI.ToggleLike(data).then((response) => {
+                console.log(response.data.data)
+            }).catch(function () {
+                commit('SET_POST', []);
+            });
+        },
+
         FindPost({ commit }, id) {
             PostAPI.FindPost(id).then((response) => {
                 commit('SET_POST', response.data.data);

@@ -75,8 +75,7 @@ Route::resource('posts', 'Api\PostController');
 Route::get('/comments/find-comment-by-post/{id}','Api\CommentController@findCommentByPost');
 Route::resource('comments', 'Api\CommentController');
 
-
-
+Route::post('togglelike', 'Api\LikeController@like');
 // Route::middleware('auth:api')->get('/user', function (Request $request) {
 //     return $request->user();
 // });
