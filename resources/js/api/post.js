@@ -28,6 +28,10 @@ export default {
         return axios.get( CONFIG.setAPIURL() + '/posts/' + id, { headers: CONFIG.responseHeaders() });
     },
 
+    ToggleLike: function( slug ){
+        return axios.post( CONFIG.setAPIURL() + '/togglelike', slug, { headers: CONFIG.responseHeaders() } );
+    },
+
     UpdatePost: function( slug ){
         return axios.patch( CONFIG.setAPIURL() + '/posts/' + slug.id, slug, { headers: CONFIG.responseHeaders() });
     },

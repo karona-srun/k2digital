@@ -19,14 +19,14 @@ class PostResource extends JsonResource
         return [
             'id' => $this->id,
             'post' => $this->post,
-            'like' => $this->like,
+            'like' => $this->like->where('like', 1)->count(),
             'privacy' => $this->privacy,
             'comments' => $this->comments->map(function ($item, $index){
                 return [
                     'id' => $item['id'],
                     'comments' => $item['comments'],
                     'post_id' => $item['post_id'],
-                    'created_at' => $item['width'],
+                    'created_at' => $item['created_at'],
                     'creator' => $item['creator'],
                     'updated_at' => $item['updated_at'],
                     'updator' => $item['updator'],

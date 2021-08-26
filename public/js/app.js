@@ -3137,6 +3137,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
@@ -3160,7 +3162,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
   created: function created() {
     this.LoadPosts(), this.LoadComments(), this.Me();
   },
-  methods: _objectSpread(_objectSpread({}, (0,vuex__WEBPACK_IMPORTED_MODULE_0__.mapActions)(["LoadPosts", "LoadComments", "RemovePost", "UpdatePost", "AddNewComment", "FindCommentByPost", "RemoveComment", "UpdateComment", "Me"])), {}, {
+  methods: _objectSpread(_objectSpread({}, (0,vuex__WEBPACK_IMPORTED_MODULE_0__.mapActions)(["LoadPosts", "LoadComments", "RemovePost", "UpdatePost", "ToggleLike", "AddNewComment", "FindCommentByPost", "RemoveComment", "UpdateComment", "Me"])), {}, {
     onClickDeletePost: function onClickDeletePost(id) {
       this.RemovePost(id);
       this.LoadPosts();
@@ -3226,6 +3228,13 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       this.comment = "";
       this.LoadPosts();
       this.LoadComments();
+    },
+    toggleLike: function toggleLike(id) {
+      var data = {
+        post_id: id
+      };
+      this.ToggleLike(data);
+      this.LoadPosts();
     },
     toggleModalConfirmEdit: function toggleModalConfirmEdit(modalType, modalId, titleText, bodyText, privacy) {
       this.modalTitleText = titleText;
@@ -3395,6 +3404,11 @@ Imports the Roast API URL from the config.
   },
   FindPost: function FindPost(id) {
     return axios.get(_config_js__WEBPACK_IMPORTED_MODULE_0__.default.setAPIURL() + '/posts/' + id, {
+      headers: _config_js__WEBPACK_IMPORTED_MODULE_0__.default.responseHeaders()
+    });
+  },
+  ToggleLike: function ToggleLike(slug) {
+    return axios.post(_config_js__WEBPACK_IMPORTED_MODULE_0__.default.setAPIURL() + '/togglelike', slug, {
       headers: _config_js__WEBPACK_IMPORTED_MODULE_0__.default.responseHeaders()
     });
   },
@@ -4190,18 +4204,26 @@ var posts = {
         }, _callee3);
       }))();
     },
-    FindPost: function FindPost(_ref4, id) {
+    ToggleLike: function ToggleLike(_ref4, data) {
       var commit = _ref4.commit;
+      _api_post_js__WEBPACK_IMPORTED_MODULE_1__.default.ToggleLike(data).then(function (response) {
+        console.log(response.data.data);
+      })["catch"](function () {
+        commit('SET_POST', []);
+      });
+    },
+    FindPost: function FindPost(_ref5, id) {
+      var commit = _ref5.commit;
       _api_post_js__WEBPACK_IMPORTED_MODULE_1__.default.FindPost(id).then(function (response) {
         commit('SET_POST', response.data.data);
       })["catch"](function () {
         commit('SET_POST', []);
       });
     },
-    UpdatePost: function UpdatePost(_ref5, data) {
-      var commit = _ref5.commit,
-          state = _ref5.state,
-          dispatch = _ref5.dispatch;
+    UpdatePost: function UpdatePost(_ref6, data) {
+      var commit = _ref6.commit,
+          state = _ref6.state,
+          dispatch = _ref6.dispatch;
       _api_post_js__WEBPACK_IMPORTED_MODULE_1__.default.UpdatePost(data).then(function (response) {
         commit('UPDATE_POST', response.data.data);
         dispatch('LoadPosts');
@@ -4209,10 +4231,10 @@ var posts = {
         commit('SET_POSTS', {});
       });
     },
-    RemovePost: function RemovePost(_ref6, id) {
-      var commit = _ref6.commit,
-          state = _ref6.state,
-          dispatch = _ref6.dispatch;
+    RemovePost: function RemovePost(_ref7, id) {
+      var commit = _ref7.commit,
+          state = _ref7.state,
+          dispatch = _ref7.dispatch;
       _api_post_js__WEBPACK_IMPORTED_MODULE_1__.default.DeletePost(id).then(function (response) {
         commit('REMOVE_POST', response.data.data);
         dispatch('LoadPosts');
@@ -43773,13 +43795,19 @@ var render = function() {
                               {
                                 staticClass:
                                   "accordion-button btn btn-default text-small",
-                                attrs: { type: "button" }
+                                attrs: { type: "button" },
+                                on: {
+                                  click: function($event) {
+                                    $event.preventDefault()
+                                    return _vm.toggleLike(post.id)
+                                  }
+                                }
                               },
                               [
                                 _c("i", { staticClass: "bi bi-heart me-2" }),
                                 _vm._v(
                                   " " +
-                                    _vm._s(post.likes) +
+                                    _vm._s(post.like) +
                                     " ចូលចិត្ត\n                  "
                                 )
                               ]

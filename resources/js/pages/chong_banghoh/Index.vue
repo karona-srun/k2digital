@@ -77,8 +77,10 @@
                 </div>
                 <div class="accordion-header" :id="'flush-headingOne' + i">
                   <div class="btn-group" role="group" aria-label="Basic example">
-                    <button type="button" class="accordion-button btn btn-default text-small">
-                      <i class="bi bi-heart me-2"></i> {{ post.likes }} ចូលចិត្ត
+                    <button type="button" 
+                      class="accordion-button btn btn-default text-small"
+                      @click.prevent="toggleLike(post.id)">
+                      <i class="bi bi-heart me-2"></i> {{ post.like }} ចូលចិត្ត
                     </button>
                     <button type="button" @click.prevent="onClickComments(post.id)" class="
                         accordion-button
@@ -282,6 +284,7 @@
         "LoadComments",
         "RemovePost",
         "UpdatePost",
+        "ToggleLike",
         "AddNewComment",
         "FindCommentByPost",
         "RemoveComment",
@@ -349,6 +352,13 @@
         this.comment = "";
         this.LoadPosts();
         this.LoadComments();
+      },
+      toggleLike(id){
+        let data = {
+          post_id: id,
+        }
+        this.ToggleLike(data);
+        this.LoadPosts();
       },
       toggleModalConfirmEdit(modalType,modalId,titleText,bodyText,privacy){
         this.modalTitleText = titleText;
