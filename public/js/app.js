@@ -2375,6 +2375,20 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
@@ -2392,11 +2406,30 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       modalPrivary: ''
     };
   },
-  computed: _objectSpread({}, (0,vuex__WEBPACK_IMPORTED_MODULE_0__.mapGetters)(["posts", "comments", "auth"])),
+  computed: _objectSpread(_objectSpread({}, (0,vuex__WEBPACK_IMPORTED_MODULE_0__.mapGetters)(["posts", "comments", "auth"])), {}, {
+    isLoggedIn: function isLoggedIn() {
+      return this.$store.getters.isAuthenticated;
+    }
+  }),
   created: function created() {
     this.LoadPostPublic(), this.LoadComments();
   },
-  methods: _objectSpread(_objectSpread({}, (0,vuex__WEBPACK_IMPORTED_MODULE_0__.mapActions)(["LoadPostPublic", "LoadComments", "RemovePost", "UpdatePost", "AddNewComment", "FetchCommentByPost", "RemoveComment", "UpdateComment"])), {}, {
+  methods: _objectSpread(_objectSpread({}, (0,vuex__WEBPACK_IMPORTED_MODULE_0__.mapActions)(["LoadPostPublic", "LoadComments", "RemovePost", "UpdatePost", "ToggleLike", "AddNewComment", "FetchCommentByPost", "RemoveComment", "UpdateComment"])), {}, {
+    alertMessage: function alertMessage() {
+      this.$message({
+        title: "ជូនដំណឹង!",
+        message: "សូមចូលប្រើប្រាស់ជាមុនសិន ទើបអនុញ្ញាតលោកអ្នកបង្ហោះអត្ថបទបាន!",
+        iconImg: "https://image.flaticon.com/icons/png/512/753/753345.png" // Error icon
+
+      });
+    },
+    toggleLike: function toggleLike(id) {
+      var data = {
+        post_id: id
+      };
+      this.ToggleLike(data);
+      this.LoadPostPublic();
+    },
     onClickDeletePost: function onClickDeletePost(id) {
       this.RemovePost(id);
       this.LoadPostPublic();
@@ -3599,7 +3632,7 @@ var CONFIG = /*#__PURE__*/function () {
     key: "setAPIURL",
     value: function setAPIURL() {
       if (true) {
-        return 'https://k2digital.karonasrun.com/api';
+        return 'http://k2digital.test/api';
       } else {}
     }
   }, {
@@ -42417,22 +42450,62 @@ var render = function() {
                             }
                           },
                           [
-                            _c(
-                              "button",
-                              {
-                                staticClass:
-                                  "accordion-button btn btn-default text-small",
-                                attrs: { type: "button" }
-                              },
-                              [
-                                _c("i", { staticClass: "bi bi-heart me-2" }),
-                                _vm._v(
-                                  " " +
-                                    _vm._s(post.likes) +
-                                    " ចូលចិត្ត\n                  "
+                            !_vm.isLoggedIn
+                              ? _c(
+                                  "button",
+                                  {
+                                    staticClass:
+                                      "accordion-button btn btn-default text-small",
+                                    attrs: { type: "button" },
+                                    on: {
+                                      click: function($event) {
+                                        $event.preventDefault()
+                                        return _vm.alertMessage.apply(
+                                          null,
+                                          arguments
+                                        )
+                                      }
+                                    }
+                                  },
+                                  [
+                                    _c("i", {
+                                      staticClass: "bi bi-heart me-2"
+                                    }),
+                                    _vm._v(
+                                      " " +
+                                        _vm._s(post.like) +
+                                        " ចូលចិត្ត\n                  "
+                                    )
+                                  ]
                                 )
-                              ]
-                            ),
+                              : _vm._e(),
+                            _vm._v(" "),
+                            _vm.isLoggedIn
+                              ? _c(
+                                  "button",
+                                  {
+                                    staticClass:
+                                      "accordion-button btn btn-default text-small",
+                                    attrs: { type: "button" },
+                                    on: {
+                                      click: function($event) {
+                                        $event.preventDefault()
+                                        return _vm.toggleLike(post.id)
+                                      }
+                                    }
+                                  },
+                                  [
+                                    _c("i", {
+                                      staticClass: "bi bi-heart me-2"
+                                    }),
+                                    _vm._v(
+                                      " " +
+                                        _vm._s(post.like) +
+                                        " ចូលចិត្ត\n                  "
+                                    )
+                                  ]
+                                )
+                              : _vm._e(),
                             _vm._v(" "),
                             _c(
                               "button",
@@ -42514,19 +42587,46 @@ var render = function() {
                               }
                             }),
                             _vm._v(" "),
-                            _c(
-                              "button",
-                              {
-                                staticClass:
-                                  "btn btn-sm btn-outline-app text-small mt-3",
-                                attrs: { type: "submit" }
-                              },
-                              [
-                                _vm._v(
-                                  "\n                    មតិយោបល់\n                  "
+                            !_vm.isLoggedIn
+                              ? _c(
+                                  "button",
+                                  {
+                                    staticClass:
+                                      "btn btn-sm btn-outline-app text-small mt-3",
+                                    attrs: { type: "button" },
+                                    on: {
+                                      click: function($event) {
+                                        $event.preventDefault()
+                                        return _vm.alertMessage.apply(
+                                          null,
+                                          arguments
+                                        )
+                                      }
+                                    }
+                                  },
+                                  [
+                                    _vm._v(
+                                      "\n                    មតិយោបល់\n                  "
+                                    )
+                                  ]
                                 )
-                              ]
-                            )
+                              : _vm._e(),
+                            _vm._v(" "),
+                            _vm.isLoggedIn
+                              ? _c(
+                                  "button",
+                                  {
+                                    staticClass:
+                                      "btn btn-sm btn-outline-app text-small mt-3",
+                                    attrs: { type: "submit" }
+                                  },
+                                  [
+                                    _vm._v(
+                                      "\n                    មតិយោបល់\n                  "
+                                    )
+                                  ]
+                                )
+                              : _vm._e()
                           ]
                         ),
                         _vm._v(" "),
