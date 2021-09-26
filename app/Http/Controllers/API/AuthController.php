@@ -91,7 +91,7 @@ class AuthController extends Controller
         $user = new User;
         $user->first_name = $request->first_name;
         $user->last_name = $request->last_name;
-        $user->role = 1; // user normal
+        $user->role = 2; // user normal
         $user->email = $request->email;
         $user->password = Hash::make($request->password);
         
@@ -127,6 +127,10 @@ class AuthController extends Controller
     public function me()
     {
         $user = auth()->user();
+        $user->petools;
+        $user->plans;
+        $user['has_plans'] = empty($user->plans) ?? true;
+        $user['has_petools'] = empty($user->hasPetools) ?? true;
         $user['avatar'] = url(Storage::url("avatars/".$user->avatar));
         return response()->json([ 'data' => $user]);
     }

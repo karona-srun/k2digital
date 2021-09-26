@@ -59,6 +59,24 @@ class User extends Authenticatable
         return $this->hasMany(Post::class);
     }
 
+    public function petools()
+    {
+        return $this->hasMany(PETools::class,'created_by');
+    }
+
+    /**
+     * The plans that belong to the user.
+     */
+    public function plans()
+    {
+        return $this->belongsToMany(Plan::class, 'user_plans');
+    }
+
+    public function gethasPetoolsAttribute()
+    {
+        return (bool) $this->petools()->exists();
+    }
+
     protected function serializeDate(DateTimeInterface $date)
     {
         return $date->format('D,d m Y H:i A');
