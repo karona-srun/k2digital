@@ -60,8 +60,19 @@
                 </div>
                 <div class="accordion-header" :id="'flush-headingOne' + i">
                   <div class="btn-group" role="group" aria-label="Basic example">
-                    <button type="button" class="accordion-button btn btn-default text-small">
-                      <i class="bi bi-heart me-2"></i> {{ post.likes }} ចូលចិត្ត
+                    <button 
+                      v-if="!isLoggedIn"
+                      type="button" 
+                      @click.prevent="alertMessage"
+                      class="accordion-button btn btn-default text-small">
+                      <i class="bi bi-heart me-2"></i> {{ post.like }} ចូលចិត្ត
+                    </button>
+                    <button 
+                      v-if="isLoggedIn"
+                      type="button" 
+                      class="accordion-button btn btn-default text-small"
+                      @click.prevent="toggleLike(post.id)">
+                      <i class="bi bi-heart me-2"></i> {{ post.like }} ចូលចិត្ត
                     </button>
                     <button type="button" @click.prevent="onClickComments(post.id)" class="
                         accordion-button
@@ -79,7 +90,10 @@
                   :aria-labelledby="'flush-headingOne' + i" data-bs-parent="#accordionFlushExample">
                   <form class="mb-3 mt-3" @submit.prevent="onClickSubmitComment(post.id)">
                     <textarea rows="3" v-model="comment" class="text-small form-control" required></textarea>
-                    <button type="submit" class="btn btn-sm btn-outline-app text-small mt-3">
+                    <button v-if="!isLoggedIn" @click.prevent="alertMessage" type="button" class="btn btn-sm btn-outline-app text-small mt-3">
+                      មតិយោបល់
+                    </button>
+                    <button v-if="isLoggedIn" type="submit" class="btn btn-sm btn-outline-app text-small mt-3">
                       មតិយោបល់
                     </button>
                   </form>
@@ -250,6 +264,7 @@
     },
     computed: {
       ...mapGetters(["posts", "comments","auth"]),
+      isLoggedIn : function(){ return this.$store.getters.isAuthenticated}
     },
     created() {
       this.LoadPostPublic(),
@@ -261,11 +276,27 @@
         "LoadComments",
         "RemovePost",
         "UpdatePost",
+        "ToggleLike",
         "AddNewComment",
         "FetchCommentByPost",
         "RemoveComment",
         "UpdateComment",
       ]),
+      alertMessage(){
+        this.$message({
+          title: "ជូនដំណឹង!",
+          message:
+            "សូមចូលប្រើប្រាស់ជាមុនសិន ទើបអនុញ្ញាតលោកអ្នកបង្ហោះអត្ថបទបាន!",
+          iconImg: "https://image.flaticon.com/icons/png/512/753/753345.png" // Error icon
+        });
+      },
+      toggleLike(id){
+        let data = {
+          post_id: id,
+        }
+        this.ToggleLike(data);
+        this.LoadPostPublic();
+      },
       onClickDeletePost(id) {
         this.RemovePost(id);
         this.LoadPostPublic();
