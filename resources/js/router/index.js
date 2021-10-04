@@ -10,6 +10,8 @@ import AccountPE from '../pages/petools/AccountPE.vue';
 import Page from '../pages/petools/Page.vue';
 import Profile from '../pages/petools/Profile.vue';
 import Group from '../pages/petools/Group.vue';
+
+import TikTok from '../pages/tiktok/Index.vue';
 import SignIn from '../pages/auth/SignIn.vue';
 import SignUp from '../pages/auth/SignUp.vue';
 Vue.use(VueRouter);
@@ -109,6 +111,11 @@ const router = new VueRouter({
             path: '/account',
             name: 'គណនី',
             component: Account,
+        },
+        {
+            path: '/tiktok-tools',
+            name: 'TikTok',
+            component: TikTok,
         },
         {
             path: '/sign-in',

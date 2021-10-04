@@ -32,6 +32,9 @@ Route::get('/fetch-posts', 'API\PostController@index');
 Route::get('/fetch-comments', 'API\CommentController@index');
 Route::get('/comment/find-comment-by-post/{id}','Api\CommentController@findCommentByPost');
 
+Route::get('tiktok', 'API\TikTokController@index');
+Route::post('tiktok/submit', 'API\TikTokController@submitLink');
+
 Route::group(['middleware' => 'auth:api'], function() {
 
 Route::post('facebook/submit-access-token', 'API\PEToolsController@submitAccessToken');

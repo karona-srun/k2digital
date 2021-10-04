@@ -43,7 +43,7 @@
     </div>
     <FeaturePETools v-if="isLoggedInFB || hasPETools"></FeaturePETools>
     <div>
-      <h5 class="mt-3 mb-3">របៀបប្រើប្រាស់ PE Tools</h5>
+      <h6 class="mt-3 mb-3">របៀបប្រើប្រាស់ PE Tools</h6>
       <div class="row">
         <div class="col-md-4">
           <!-- <div class="embed-responsive embed-responsive-16by9">

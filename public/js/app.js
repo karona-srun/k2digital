@@ -4435,6 +4435,181 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/pages/tiktok/Index.vue?vue&type=script&lang=js&":
+/*!**************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/pages/tiktok/Index.vue?vue&type=script&lang=js& ***!
+  \**************************************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vuelidate/lib/validators */ "./node_modules/vuelidate/lib/validators/index.js");
+/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) { symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); } keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
+  data: function data() {
+    return {
+      name: "",
+      items: [],
+      isLoading: false,
+      submitted: false
+    };
+  },
+  validations: {
+    name: {
+      required: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_0__.required
+    }
+  },
+  methods: _objectSpread(_objectSpread({}, (0,vuex__WEBPACK_IMPORTED_MODULE_1__.mapActions)(["Index", "SubmitLink"])), {}, {
+    onSubmit: function onSubmit() {
+      var _this = this;
+
+      this.submitted = true;
+      this.isLoading = true;
+      this.$v.$touch();
+
+      if (this.$v.$invalid) {
+        this.isLoading = false;
+        this.$message({
+          title: "ព្រមាន!",
+          message: "Username ដែលបានផ្តល់មិនត្រឹមត្រូវទេ!",
+          iconImg: "https://image.flaticon.com/icons/png/512/753/753345.png" // Error
+
+        });
+        return;
+      }
+
+      var options = {
+        method: "GET",
+        url: "https://tik-tok-feed.p.rapidapi.com/",
+        params: {
+          search: this.name,
+          type: "user-feed-no-watermark",
+          max: "0"
+        },
+        headers: {
+          "x-rapidapi-host": "tik-tok-feed.p.rapidapi.com",
+          "x-rapidapi-key": "c1abb63253msh21a61937483ee9ap131d55jsn9a1324fc4ce4"
+        }
+      };
+      var data = axios.request(options).then(function (response) {
+        console.log(response.data.items);
+        return response.data.items;
+      })["catch"](function (error) {
+        console.error(error);
+      });
+      data.then(function (response) {
+        _this.items = response;
+        _this.isLoading = false;
+      });
+    },
+    DownloadWithoutWatermark: function DownloadWithoutWatermark(url) {
+      window.open(url, "_blank"); // var data = {
+      //   url: url
+      // };
+      // this.SubmitLink(data);
+
+      this.$message({
+        title: "ជូនដំណឹង!",
+        message: "សាកល្បង Download Without Watermark!",
+        iconImg: "https://image.flaticon.com/icons/png/512/189/189677.png"
+      });
+    },
+    Download: function Download(url) {
+      window.open(url, "_blank");
+      this.$message({
+        title: "ជូនដំណឹង!",
+        message: "សាកល្បង Download!",
+        iconImg: "https://image.flaticon.com/icons/png/512/189/189677.png"
+      });
+    }
+  })
+});
+
+/***/ }),
+
 /***/ "./resources/js/api/auth.js":
 /*!**********************************!*\
   !*** ./resources/js/api/auth.js ***!
@@ -4634,6 +4809,30 @@ Imports the Roast API URL from the config.
     return axios["delete"](_config_js__WEBPACK_IMPORTED_MODULE_0__.default.setAPIURL() + '/posts/' + slug + '/unlike', {
       headers: _config_js__WEBPACK_IMPORTED_MODULE_0__.default.responseHeaders()
     });
+  }
+});
+
+/***/ }),
+
+/***/ "./resources/js/api/tiktok.js":
+/*!************************************!*\
+  !*** ./resources/js/api/tiktok.js ***!
+  \************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _config_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../config.js */ "./resources/js/config.js");
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
+  Index: function Index(data) {
+    return axios.get(_config_js__WEBPACK_IMPORTED_MODULE_0__.default.setAPIURL() + '/tiktok', data);
+  },
+  SubmitLink: function SubmitLink(data) {
+    return axios.post(_config_js__WEBPACK_IMPORTED_MODULE_0__.default.setAPIURL() + '/tiktok/submit', data);
   }
 });
 
@@ -4844,8 +5043,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.esm.js");
-/* harmony import */ var vue_router__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! vue-router */ "./node_modules/vue-router/dist/vue-router.esm.js");
+/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.esm.js");
+/* harmony import */ var vue_router__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! vue-router */ "./node_modules/vue-router/dist/vue-router.esm.js");
 /* harmony import */ var _store__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../store */ "./resources/js/store/index.js");
 /* harmony import */ var _pages_Home_vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../pages/Home.vue */ "./resources/js/pages/Home.vue");
 /* harmony import */ var _pages_About_vue__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../pages/About.vue */ "./resources/js/pages/About.vue");
@@ -4856,8 +5055,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _pages_petools_Page_vue__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../pages/petools/Page.vue */ "./resources/js/pages/petools/Page.vue");
 /* harmony import */ var _pages_petools_Profile_vue__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../pages/petools/Profile.vue */ "./resources/js/pages/petools/Profile.vue");
 /* harmony import */ var _pages_petools_Group_vue__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ../pages/petools/Group.vue */ "./resources/js/pages/petools/Group.vue");
-/* harmony import */ var _pages_auth_SignIn_vue__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ../pages/auth/SignIn.vue */ "./resources/js/pages/auth/SignIn.vue");
-/* harmony import */ var _pages_auth_SignUp_vue__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ../pages/auth/SignUp.vue */ "./resources/js/pages/auth/SignUp.vue");
+/* harmony import */ var _pages_tiktok_Index_vue__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ../pages/tiktok/Index.vue */ "./resources/js/pages/tiktok/Index.vue");
+/* harmony import */ var _pages_auth_SignIn_vue__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ../pages/auth/SignIn.vue */ "./resources/js/pages/auth/SignIn.vue");
+/* harmony import */ var _pages_auth_SignUp_vue__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ../pages/auth/SignUp.vue */ "./resources/js/pages/auth/SignUp.vue");
 
 
 
@@ -4872,10 +5072,11 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-vue__WEBPACK_IMPORTED_MODULE_12__.default.use(vue_router__WEBPACK_IMPORTED_MODULE_13__.default);
-var originalPush = vue_router__WEBPACK_IMPORTED_MODULE_13__.default.prototype.push;
 
-vue_router__WEBPACK_IMPORTED_MODULE_13__.default.prototype.push = function push(location) {
+vue__WEBPACK_IMPORTED_MODULE_13__.default.use(vue_router__WEBPACK_IMPORTED_MODULE_14__.default);
+var originalPush = vue_router__WEBPACK_IMPORTED_MODULE_14__.default.prototype.push;
+
+vue_router__WEBPACK_IMPORTED_MODULE_14__.default.prototype.push = function push(location) {
   return originalPush.call(this, location)["catch"](function (error) {
     console.log(error.message);
   });
@@ -4921,7 +5122,7 @@ var scrollBehavior = function scrollBehavior(to, from, savedPosition) {
   }
 };
 
-var router = new vue_router__WEBPACK_IMPORTED_MODULE_13__.default({
+var router = new vue_router__WEBPACK_IMPORTED_MODULE_14__.default({
   mode: 'hash',
   scrollBehavior: scrollBehavior,
   linkExactActiveClass: 'active',
@@ -4971,23 +5172,27 @@ var router = new vue_router__WEBPACK_IMPORTED_MODULE_13__.default({
     name: 'គណនី',
     component: _pages_petools_Account_vue__WEBPACK_IMPORTED_MODULE_5__.default
   }, {
+    path: '/tiktok-tools',
+    name: 'TikTok',
+    component: _pages_tiktok_Index_vue__WEBPACK_IMPORTED_MODULE_10__.default
+  }, {
     path: '/sign-in',
     name: 'ចូលគណនី',
-    component: _pages_auth_SignIn_vue__WEBPACK_IMPORTED_MODULE_10__.default,
+    component: _pages_auth_SignIn_vue__WEBPACK_IMPORTED_MODULE_11__.default,
     meta: {
       guest: true
     }
   }, {
     path: '/sign-up',
     name: 'ចុះឈ្មោះ',
-    component: _pages_auth_SignUp_vue__WEBPACK_IMPORTED_MODULE_11__.default,
+    component: _pages_auth_SignUp_vue__WEBPACK_IMPORTED_MODULE_12__.default,
     meta: {
       guest: true
     }
   }]
 });
 router.afterEach(function (to, from) {
-  vue__WEBPACK_IMPORTED_MODULE_12__.default.nextTick(function () {
+  vue__WEBPACK_IMPORTED_MODULE_13__.default.nextTick(function () {
     document.title = to.name + ' | K2 ​ឌីជីថល' || 0;
   });
 });
@@ -5022,27 +5227,30 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.esm.js");
-/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
+/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.esm.js");
+/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
 /* harmony import */ var _modules_auth_module__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./modules/auth.module */ "./resources/js/store/modules/auth.module.js");
 /* harmony import */ var _modules_post_module__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./modules/post.module */ "./resources/js/store/modules/post.module.js");
 /* harmony import */ var _modules_comment_module__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./modules/comment.module */ "./resources/js/store/modules/comment.module.js");
-/* harmony import */ var vuex_persistedstate__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! vuex-persistedstate */ "./node_modules/vuex-persistedstate/dist/vuex-persistedstate.es.js");
+/* harmony import */ var _modules_tiktok_module__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./modules/tiktok.module */ "./resources/js/store/modules/tiktok.module.js");
+/* harmony import */ var vuex_persistedstate__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! vuex-persistedstate */ "./node_modules/vuex-persistedstate/dist/vuex-persistedstate.es.js");
 
 
 
 
 
 
-vue__WEBPACK_IMPORTED_MODULE_4__.default.use(vuex__WEBPACK_IMPORTED_MODULE_5__.default);
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (new vuex__WEBPACK_IMPORTED_MODULE_5__.default.Store({
+
+vue__WEBPACK_IMPORTED_MODULE_5__.default.use(vuex__WEBPACK_IMPORTED_MODULE_6__.default);
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (new vuex__WEBPACK_IMPORTED_MODULE_6__.default.Store({
   namespaced: true,
   modules: {
     auth: _modules_auth_module__WEBPACK_IMPORTED_MODULE_0__.auth,
     posts: _modules_post_module__WEBPACK_IMPORTED_MODULE_1__.posts,
-    comments: _modules_comment_module__WEBPACK_IMPORTED_MODULE_2__.comments
+    comments: _modules_comment_module__WEBPACK_IMPORTED_MODULE_2__.comments,
+    tiktok: _modules_tiktok_module__WEBPACK_IMPORTED_MODULE_3__.tiktok
   },
-  plugins: [(0,vuex_persistedstate__WEBPACK_IMPORTED_MODULE_3__.default)()]
+  plugins: [(0,vuex_persistedstate__WEBPACK_IMPORTED_MODULE_4__.default)()]
 }));
 
 /***/ }),
@@ -5699,6 +5907,93 @@ var posts = {
       }, 1);
     }
   }
+};
+
+/***/ }),
+
+/***/ "./resources/js/store/modules/tiktok.module.js":
+/*!*****************************************************!*\
+  !*** ./resources/js/store/modules/tiktok.module.js ***!
+  \*****************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "tiktok": () => (/* binding */ tiktok)
+/* harmony export */ });
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _api_tiktok_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../api/tiktok.js */ "./resources/js/api/tiktok.js");
+
+
+function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
+
+function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
+
+
+var tiktok = {
+  state: {
+    videos: {}
+  },
+  getters: {
+    videos: function videos(state) {
+      return state.videos;
+    }
+  },
+  actions: {
+    Index: function Index(_ref, data) {
+      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee() {
+        var commit;
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee$(_context) {
+          while (1) {
+            switch (_context.prev = _context.next) {
+              case 0:
+                commit = _ref.commit;
+                _context.next = 3;
+                return _api_tiktok_js__WEBPACK_IMPORTED_MODULE_1__.default.Index(data).then(function (response) {
+                  console.log(JSON.stringify(response.data.data));
+                  return JSON.stringify(response.data.data);
+                })["catch"](function (error) {
+                  return error;
+                });
+
+              case 3:
+                return _context.abrupt("return", _context.sent);
+
+              case 4:
+              case "end":
+                return _context.stop();
+            }
+          }
+        }, _callee);
+      }))();
+    },
+    SubmitLink: function SubmitLink(_ref2, data) {
+      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee2() {
+        var commit;
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee2$(_context2) {
+          while (1) {
+            switch (_context2.prev = _context2.next) {
+              case 0:
+                commit = _ref2.commit;
+                _context2.next = 3;
+                return _api_tiktok_js__WEBPACK_IMPORTED_MODULE_1__.default.SubmitLink(data).then(function (response) {
+                  console.log(JSON.stringify(response));
+                })["catch"](function (error) {
+                  console.log(JSON.stringify(error));
+                });
+
+              case 3:
+              case "end":
+                return _context2.stop();
+            }
+          }
+        }, _callee2);
+      }))();
+    }
+  },
+  mutations: {}
 };
 
 /***/ }),
@@ -10282,6 +10577,30 @@ __webpack_require__.r(__webpack_exports__);
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
 ___CSS_LOADER_EXPORT___.push([module.id, "\n.group_list {\n  height: 500px;\n}\n.group_list::-webkit-scrollbar {\n  width: 7px !important; /* width of the entire scrollbar */\n}\n.group_list::-webkit-scrollbar-track {\n  background: transparent !important; /* color of the tracking area */\n}\n.group_list::-webkit-scrollbar-thumb {\n  background-color: rgb(\n    182,\n    182,\n    182\n  ) !important; /* color of the scroll thumb */\n  border-radius: 10px !important; /* roundness of the scroll thumb */\n  border: 3px solid transparent !important; /* creates padding around scroll thumb */\n}\n", ""]);
+// Exports
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
+
+
+/***/ }),
+
+/***/ "./node_modules/css-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/pages/tiktok/Index.vue?vue&type=style&index=0&id=49a37ac6&scoped=true&lang=css&":
+/*!**********************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/css-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/pages/tiktok/Index.vue?vue&type=style&index=0&id=49a37ac6&scoped=true&lang=css& ***!
+  \**********************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
+/***/ ((module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../../../node_modules/css-loader/dist/runtime/api.js */ "./node_modules/css-loader/dist/runtime/api.js");
+/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0__);
+// Imports
+
+var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
+// Module
+___CSS_LOADER_EXPORT___.push([module.id, "\n.video_origin_cover[data-v-49a37ac6] {\n  height: 150px;\n  width: 95px;\n}\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -42250,6 +42569,36 @@ var update = _node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js
 
 /***/ }),
 
+/***/ "./node_modules/style-loader/dist/cjs.js!./node_modules/css-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/pages/tiktok/Index.vue?vue&type=style&index=0&id=49a37ac6&scoped=true&lang=css&":
+/*!**************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/style-loader/dist/cjs.js!./node_modules/css-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/pages/tiktok/Index.vue?vue&type=style&index=0&id=49a37ac6&scoped=true&lang=css& ***!
+  \**************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! !../../../../node_modules/style-loader/dist/runtime/injectStylesIntoStyleTag.js */ "./node_modules/style-loader/dist/runtime/injectStylesIntoStyleTag.js");
+/* harmony import */ var _node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _node_modules_css_loader_dist_cjs_js_clonedRuleSet_9_0_rules_0_use_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_clonedRuleSet_9_0_rules_0_use_2_node_modules_vue_loader_lib_index_js_vue_loader_options_Index_vue_vue_type_style_index_0_id_49a37ac6_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! !!../../../../node_modules/css-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[1]!../../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../../node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[2]!../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./Index.vue?vue&type=style&index=0&id=49a37ac6&scoped=true&lang=css& */ "./node_modules/css-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/pages/tiktok/Index.vue?vue&type=style&index=0&id=49a37ac6&scoped=true&lang=css&");
+
+            
+
+var options = {};
+
+options.insert = "head";
+options.singleton = false;
+
+var update = _node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0___default()(_node_modules_css_loader_dist_cjs_js_clonedRuleSet_9_0_rules_0_use_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_clonedRuleSet_9_0_rules_0_use_2_node_modules_vue_loader_lib_index_js_vue_loader_options_Index_vue_vue_type_style_index_0_id_49a37ac6_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_1__.default, options);
+
+
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_css_loader_dist_cjs_js_clonedRuleSet_9_0_rules_0_use_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_clonedRuleSet_9_0_rules_0_use_2_node_modules_vue_loader_lib_index_js_vue_loader_options_Index_vue_vue_type_style_index_0_id_49a37ac6_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_1__.default.locals || {});
+
+/***/ }),
+
 /***/ "./node_modules/style-loader/dist/runtime/injectStylesIntoStyleTag.js":
 /*!****************************************************************************!*\
   !*** ./node_modules/style-loader/dist/runtime/injectStylesIntoStyleTag.js ***!
@@ -43214,6 +43563,47 @@ component.options.__file = "resources/js/pages/petools/Profile.vue"
 
 /***/ }),
 
+/***/ "./resources/js/pages/tiktok/Index.vue":
+/*!*********************************************!*\
+  !*** ./resources/js/pages/tiktok/Index.vue ***!
+  \*********************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _Index_vue_vue_type_template_id_49a37ac6_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Index.vue?vue&type=template&id=49a37ac6&scoped=true& */ "./resources/js/pages/tiktok/Index.vue?vue&type=template&id=49a37ac6&scoped=true&");
+/* harmony import */ var _Index_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Index.vue?vue&type=script&lang=js& */ "./resources/js/pages/tiktok/Index.vue?vue&type=script&lang=js&");
+/* harmony import */ var _Index_vue_vue_type_style_index_0_id_49a37ac6_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./Index.vue?vue&type=style&index=0&id=49a37ac6&scoped=true&lang=css& */ "./resources/js/pages/tiktok/Index.vue?vue&type=style&index=0&id=49a37ac6&scoped=true&lang=css&");
+/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! !../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+;
+
+
+/* normalize component */
+
+var component = (0,_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__.default)(
+  _Index_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__.default,
+  _Index_vue_vue_type_template_id_49a37ac6_scoped_true___WEBPACK_IMPORTED_MODULE_0__.render,
+  _Index_vue_vue_type_template_id_49a37ac6_scoped_true___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns,
+  false,
+  null,
+  "49a37ac6",
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/pages/tiktok/Index.vue"
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (component.exports);
+
+/***/ }),
+
 /***/ "./resources/js/components/FeaturePETools.vue?vue&type=script&lang=js&":
 /*!*****************************************************************************!*\
   !*** ./resources/js/components/FeaturePETools.vue?vue&type=script&lang=js& ***!
@@ -43438,6 +43828,22 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./resources/js/pages/tiktok/Index.vue?vue&type=script&lang=js&":
+/*!**********************************************************************!*\
+  !*** ./resources/js/pages/tiktok/Index.vue?vue&type=script&lang=js& ***!
+  \**********************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_0_rules_0_use_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Index_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./Index.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/pages/tiktok/Index.vue?vue&type=script&lang=js&");
+ /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_babel_loader_lib_index_js_clonedRuleSet_5_0_rules_0_use_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Index_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__.default); 
+
+/***/ }),
+
 /***/ "./resources/js/layouts/App.vue?vue&type=style&index=0&lang=css&":
 /*!***********************************************************************!*\
   !*** ./resources/js/layouts/App.vue?vue&type=style&index=0&lang=css& ***!
@@ -43499,6 +43905,19 @@ __webpack_require__.r(__webpack_exports__);
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _node_modules_style_loader_dist_cjs_js_node_modules_css_loader_dist_cjs_js_clonedRuleSet_9_0_rules_0_use_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_clonedRuleSet_9_0_rules_0_use_2_node_modules_vue_loader_lib_index_js_vue_loader_options_Index_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/style-loader/dist/cjs.js!../../../../node_modules/css-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[1]!../../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../../node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[2]!../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./Index.vue?vue&type=style&index=0&lang=css& */ "./node_modules/style-loader/dist/cjs.js!./node_modules/css-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/pages/petools/Index.vue?vue&type=style&index=0&lang=css&");
+
+
+/***/ }),
+
+/***/ "./resources/js/pages/tiktok/Index.vue?vue&type=style&index=0&id=49a37ac6&scoped=true&lang=css&":
+/*!******************************************************************************************************!*\
+  !*** ./resources/js/pages/tiktok/Index.vue?vue&type=style&index=0&id=49a37ac6&scoped=true&lang=css& ***!
+  \******************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_style_loader_dist_cjs_js_node_modules_css_loader_dist_cjs_js_clonedRuleSet_9_0_rules_0_use_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_clonedRuleSet_9_0_rules_0_use_2_node_modules_vue_loader_lib_index_js_vue_loader_options_Index_vue_vue_type_style_index_0_id_49a37ac6_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/style-loader/dist/cjs.js!../../../../node_modules/css-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[1]!../../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../../node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[2]!../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./Index.vue?vue&type=style&index=0&id=49a37ac6&scoped=true&lang=css& */ "./node_modules/style-loader/dist/cjs.js!./node_modules/css-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/pages/tiktok/Index.vue?vue&type=style&index=0&id=49a37ac6&scoped=true&lang=css&");
 
 
 /***/ }),
@@ -43770,6 +44189,23 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "staticRenderFns": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Profile_vue_vue_type_template_id_f39f51b2___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns)
 /* harmony export */ });
 /* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Profile_vue_vue_type_template_id_f39f51b2___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./Profile.vue?vue&type=template&id=f39f51b2& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/pages/petools/Profile.vue?vue&type=template&id=f39f51b2&");
+
+
+/***/ }),
+
+/***/ "./resources/js/pages/tiktok/Index.vue?vue&type=template&id=49a37ac6&scoped=true&":
+/*!****************************************************************************************!*\
+  !*** ./resources/js/pages/tiktok/Index.vue?vue&type=template&id=49a37ac6&scoped=true& ***!
+  \****************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "render": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Index_vue_vue_type_template_id_49a37ac6_scoped_true___WEBPACK_IMPORTED_MODULE_0__.render),
+/* harmony export */   "staticRenderFns": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Index_vue_vue_type_template_id_49a37ac6_scoped_true___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns)
+/* harmony export */ });
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Index_vue_vue_type_template_id_49a37ac6_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./Index.vue?vue&type=template&id=49a37ac6&scoped=true& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/pages/tiktok/Index.vue?vue&type=template&id=49a37ac6&scoped=true&");
 
 
 /***/ }),
@@ -44775,7 +45211,7 @@ var render = function() {
                           staticClass: "nav-link",
                           attrs: {
                             "data-toggle": "collapse",
-                            to: { path: "/pe-tools" }
+                            to: { path: "/tiktok-tools" }
                           }
                         },
                         [_c("strong", [_vm._v("TikTok Tools")])]
@@ -48211,7 +48647,7 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("div", [
-      _c("h5", { staticClass: "mt-3 mb-3" }, [
+      _c("h6", { staticClass: "mt-3 mb-3" }, [
         _vm._v("របៀបប្រើប្រាស់ PE Tools")
       ]),
       _vm._v(" "),
@@ -48543,6 +48979,221 @@ var staticRenderFns = [
         { staticClass: "btn btn-primary", attrs: { type: "submit" } },
         [_vm._v("យល់ព្រម")]
       )
+    ])
+  }
+]
+render._withStripped = true
+
+
+
+/***/ }),
+
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/pages/tiktok/Index.vue?vue&type=template&id=49a37ac6&scoped=true&":
+/*!*******************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/pages/tiktok/Index.vue?vue&type=template&id=49a37ac6&scoped=true& ***!
+  \*******************************************************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "render": () => (/* binding */ render),
+/* harmony export */   "staticRenderFns": () => (/* binding */ staticRenderFns)
+/* harmony export */ });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("div", { staticClass: "container mt-1" }, [
+    _c("div", { staticClass: "row justify-content-center" }, [
+      _vm._m(0),
+      _vm._v(" "),
+      _c(
+        "form",
+        {
+          staticClass: "col-md-12 mt-2",
+          on: {
+            submit: function($event) {
+              $event.preventDefault()
+              return _vm.onSubmit.apply(null, arguments)
+            }
+          }
+        },
+        [
+          _c("div", { staticClass: "input-group" }, [
+            _c("input", {
+              directives: [
+                {
+                  name: "model",
+                  rawName: "v-model",
+                  value: _vm.name,
+                  expression: "name"
+                }
+              ],
+              staticClass: "form-control",
+              class: {
+                "is-invalid": _vm.submitted && _vm.$v.name.$error
+              },
+              attrs: { type: "text", placeholder: "TikTok Username" },
+              domProps: { value: _vm.name },
+              on: {
+                input: function($event) {
+                  if ($event.target.composing) {
+                    return
+                  }
+                  _vm.name = $event.target.value
+                }
+              }
+            }),
+            _vm._v(" "),
+            _c(
+              "button",
+              {
+                staticClass: "btn btn-primary",
+                attrs: { type: "submit", disabled: _vm.isLoading }
+              },
+              [
+                !_vm.isLoading
+                  ? _c("i", { staticClass: "bi bi-arrow-up-right-square" })
+                  : _vm._e(),
+                _vm._v(" "),
+                _vm.isLoading
+                  ? _c("span", {
+                      staticClass: "spinner-border spinner-border-sm",
+                      attrs: { role: "status", "aria-hidden": "true" }
+                    })
+                  : _vm._e(),
+                _vm._v(
+                  "\n          ​" +
+                    _vm._s(_vm.isLoading ? " កំពុងស្វែងរក" : " បញ្ជូន") +
+                    "\n        "
+                )
+              ]
+            )
+          ])
+        ]
+      ),
+      _vm._v(" "),
+      _c("h6", { staticClass: "mt-3" }, [_vm._v("របៀបប្រើប្រាស់")]),
+      _vm._v(" "),
+      _vm._m(1),
+      _vm._v(" "),
+      _vm._m(2),
+      _vm._v(" "),
+      _vm._m(3),
+      _vm._v(" "),
+      _vm._m(4),
+      _vm._v(" "),
+      _c(
+        "div",
+        { staticClass: "row p-2" },
+        _vm._l(_vm.items, function(item) {
+          return _c("div", { key: item.id, staticClass: "col-md-12 mt-2" }, [
+            _c("div", { staticClass: "media" }, [
+              _c("img", {
+                staticClass: "video_origin_cover mr-3",
+                attrs: { src: item.video.cover, alt: "video_origin_cover" }
+              }),
+              _vm._v(" "),
+              _c("div", { staticClass: "media-body" }, [
+                _c("h6", { staticClass: "mt-0 fw-bold" }, [
+                  _vm._v(_vm._s(item.desc))
+                ]),
+                _vm._v(" "),
+                _c(
+                  "button",
+                  {
+                    staticClass: "btn btn-primary",
+                    attrs: { type: "button" },
+                    on: {
+                      click: function($event) {
+                        $event.preventDefault()
+                        return _vm.Download(item.video.downloadAddr[2])
+                      }
+                    }
+                  },
+                  [_vm._v("Download")]
+                ),
+                _vm._v(" "),
+                _c(
+                  "button",
+                  {
+                    staticClass: "btn btn-primary",
+                    attrs: { type: "button" },
+                    on: {
+                      click: function($event) {
+                        $event.preventDefault()
+                        return _vm.DownloadWithoutWatermark(
+                          item.video.playAddr[2]
+                        )
+                      }
+                    }
+                  },
+                  [
+                    _vm._v(
+                      "\n              Download without watermark\n            "
+                    )
+                  ]
+                )
+              ])
+            ])
+          ])
+        }),
+        0
+      )
+    ])
+  ])
+}
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "col-md-12 text-center" }, [
+      _c("h2", {}, [_vm._v("សូមស្វាគមន៍ការចូលមកកាន់ TikTok Downloader")])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("p", { attrs: { for: "" } }, [
+      _vm._v("\n      ១. ចូលទៅ "),
+      _c("span", { staticClass: "fw-bold" }, [_vm._v("TikTok")]),
+      _vm._v(" បន្ទាប់មកចូលមកចូលទៅ\n      "),
+      _c("span", { staticClass: "fw-bold" }, [_vm._v("Link")]),
+      _vm._v(" របស់អ្នកប្រើប្រាស់\n    ")
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("p", { staticClass: "ml-5" }, [
+      _vm._v("ឧទាហរណ៍៖ https://www.tiktok.com/@"),
+      _c("span", { staticClass: "fw-bold" }, [_vm._v("Username")])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("p", { attrs: { for: "" } }, [
+      _vm._v("\n      ២. ចូលទៅ "),
+      _c("span", { staticClass: "fw-bold" }, [_vm._v("Copy")]),
+      _vm._v(" យកឈ្មោះរបស់អ្នកប្រើប្រាស់\n    ")
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("p", { attrs: { for: "" } }, [
+      _vm._v("\n      ៣. មកចូលទៅ "),
+      _c("span", { staticClass: "fw-bold" }, [_vm._v("Paste")]),
+      _vm._v(" នៅក្នុងប្រអប់ចូលទៅ\n      "),
+      _c("span", { staticClass: "fw-bold" }, [_vm._v("TikTok Username")]),
+      _vm._v(" ហើយចុចប៊ូតុងបញ្ជូន\n    ")
     ])
   }
 ]

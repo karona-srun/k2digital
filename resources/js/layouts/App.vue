@@ -89,7 +89,7 @@
               <router-link
                 class="nav-link"
                 data-toggle="collapse"
-                :to="{ path: '/pe-tools' }"
+                :to="{ path: '/tiktok-tools' }"
               >
                 <strong>TikTok Tools</strong>
               </router-link>
