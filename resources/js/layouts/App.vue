@@ -6,7 +6,7 @@
           <img
             class="img-responsive"
             width="40"
-            src="https://scontent.fpnh2-2.fna.fbcdn.net/v/t1.6435-9/114757570_1195350050800627_7655988418641948680_n.png?_nc_cat=109&ccb=1-3&_nc_sid=09cbfe&_nc_eui2=AeGFntXCFlGyKdfX22IjvDR3GQN8H6-gijUZA3wfr6CKNWm8tC1gxYIOFubhbBs2n06tUyur7b3zqkM-DPQt725v&_nc_ohc=e6BI2K6YEI0AX_cc8aM&_nc_ht=scontent.fpnh2-2.fna&oh=d3607aed3d007a0f6f2ecad68a656f64&oe=612BBFA5"
+            :src="logo"
             alt="logo"
             srcset=""
           />
@@ -43,6 +43,57 @@
                 ចង់បង្ហោះ
               </router-link>
             </li>
+            <li class="nav-item" v-if="!isLoggedInFB">
+              <router-link
+                class="nav-link"
+                data-toggle="collapse"
+                :to="{ path: '/pe-tools' }"
+              >
+                <strong>PE Tools</strong>
+              </router-link>
+            </li>
+
+            <li class="nav-item dropdown" v-else>
+              <button
+                :to="{}"
+                class="nav-link btn btn-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
+              >
+                <strong>PE Tools</strong>
+              </button>
+              <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                <router-link
+                  class="dropdown-item"
+                  :to="{ path: '/pe-tools' }">
+                  <strong>PE Tools</strong>
+                </router-link>
+                <router-link
+                  class="dropdown-item"
+                  :to="{ path: '/account' }">
+                  គណនីរបស់អ្នក
+                </router-link>
+                <router-link
+                  class="dropdown-item"
+                  :to="{ path: '/pe-tools/account' }">
+                  គណនី Facebook
+                </router-link>
+                <!-- <div class="dropdown-divider"></div>
+                <a
+                  class="dropdown-item"
+                  href="#"
+                  @click.prevent="onSubmitSignOutPE"
+                  >ចាកចេញពី PE Tools</a
+                > -->
+                </div>
+            </li>
+            <li class="nav-item">
+              <router-link
+                class="nav-link"
+                data-toggle="collapse"
+                :to="{ path: '/tiktok-tools' }"
+              >
+                <strong>TikTok Tools</strong>
+              </router-link>
+            </li>
             <li class="nav-item">
               <router-link
                 class="nav-link"
@@ -54,7 +105,8 @@
             </li>
           </ul>
           <div class="d-flex">
-            <button v-if="isLoggedIn"
+            <button
+              v-if="isLoggedIn"
               class="btn btn-outline-app me-2"
               type="button"
               data-toggle="modal"
@@ -62,7 +114,8 @@
             >
               <i class="bi bi-plus"></i> បង្ហោះ
             </button>
-            <button v-if="!isLoggedIn"
+            <button
+              v-if="!isLoggedIn"
               class="btn btn-outline-app me-2"
               type="button"
               @click.prevent="alertMessage"
@@ -70,12 +123,24 @@
               <i class="bi bi-plus"></i> បង្ហោះ
             </button>
             <span v-if="isLoggedIn">
-              
-              <img :src="auth.avatar" class="rounded-100 avatar ml-3" width="20px" alt="avatar" srcset="">
-              <span class="mr-3 text-blod">{{ auth.first_name }} {{ auth.last_name }}</span>
-              
-              <button @click.prevent="onSubmitSignOut" class="btn btn-app me-2"
-                      type="button"><i class="bi bi-arrow-bar-left"></i>ចាកចេញ</button>
+              <img
+                :src="auth.avatar"
+                class="rounded-100 avatar ml-3"
+                width="20px"
+                alt="avatar"
+                srcset=""
+              />
+              <span class="mr-3 text-blod"
+                >{{ auth.first_name }} {{ auth.last_name }}</span
+              >
+
+              <button
+                @click.prevent="onSubmitSignOut"
+                class="btn btn-app me-2"
+                type="button"
+              >
+                <i class="bi bi-arrow-bar-left"></i>ចាកចេញ
+              </button>
             </span>
             <span v-else>
               <button
@@ -137,14 +202,25 @@
               </div>
               <div class="md-3">
                 <label for="">អត្ថបទ</label>
-                <textarea rows="5" v-model="post" required class="form-control text-small"></textarea>
+                <textarea
+                  rows="5"
+                  v-model="post"
+                  required
+                  class="form-control text-small"
+                ></textarea>
               </div>
             </div>
             <div class="modal-footer">
-              <button type="button" class="btn btn-sm btn-app text-small" data-dismiss="modal">
+              <button
+                type="button"
+                class="btn btn-sm btn-app text-small"
+                data-dismiss="modal"
+              >
                 បោះបង់
               </button>
-              <button type="submit" class="btn btn-sm btn-primary text-small">បង្ហោះ</button>
+              <button type="submit" class="btn btn-sm btn-primary text-small">
+                បង្ហោះ
+              </button>
             </div>
           </form>
         </div>
@@ -154,17 +230,26 @@
 </template>
 
 <script>
-import { mapActions, mapGetters } from 'vuex';
+import { mapActions, mapGetters, mapMutations } from "vuex";
 export default {
-  data(){
+  data() {
     return {
-      post: '',
+      logo: "/favicon.png",
+      post: "",
       privacy: 1,
-    }
+    };
   },
-  computed : {
+  computed: {
     ...mapGetters(["auth"]),
-    isLoggedIn : function(){ return this.$store.getters.isAuthenticated}
+    isLoggedIn: function () {
+      return this.$store.getters.isAuthenticated;
+    },
+    isLoggedInFB: function () {
+      if(this.$store.getters.isAuthenticated){
+        return this.$store.getters.auth.has_petools;
+      }
+      return false;
+    },
   },
   watch: {
     $route() {
@@ -172,55 +257,51 @@ export default {
     },
   },
   created() {
-    this.Me()
+    this.Me();
   },
   methods: {
-    ...mapActions(["AddNewPost","SignOut","Me"]),
+    ...mapActions(["AddNewPost", "SignOut", "Me", "SignOutPE"]),
     onClickSignIn() {
       this.$router.push("sign-in");
     },
     onClickSignUp() {
       this.$router.push("sign-up");
     },
-    alertMessage(){
+    alertMessage() {
       this.$message({
-            title: "ជូនដំណឹង!",
-            message:
-              "សូមចូលប្រើប្រាស់ជាមុនសិន ទើបអនុញ្ញាតលោកអ្នកបង្ហោះអត្ថបទបាន!",
-            iconImg: "https://image.flaticon.com/icons/png/512/753/753345.png" // Error icon
-          });
+        title: "ជូនដំណឹង!",
+        message: "សូមចូលប្រើប្រាស់ជាមុនសិន ទើបអនុញ្ញាតលោកអ្នកបង្ហោះអត្ថបទបាន!",
+        iconImg: "https://image.flaticon.com/icons/png/512/753/753345.png", // Error icon
+      });
     },
     onClickSubmit() {
       var post = {
-        'post': this.post,
-        'privacy': this.privacy
+        post: this.post,
+        privacy: this.privacy,
       };
       var result = this.AddNewPost(post);
-      result.then(response => {
-        if(response == "success"){
+      result.then((response) => {
+        if (response == "success") {
           console.log(response);
           this.$message({
             title: "អមអរ!",
-            message:
-              "ការបង្ហោះអត្ថបទរបស់អ្នកបានដោយជោគជ័យ!",
-            iconImg: 'https://image.flaticon.com/icons/png/512/189/189677.png', // Success
+            message: "ការបង្ហោះអត្ថបទរបស់អ្នកបានដោយជោគជ័យ!",
+            iconImg: "https://image.flaticon.com/icons/png/512/189/189677.png", // Success
           });
           this.clearForm();
         }
-        
-      })
-    },
-    onSubmitSignOut (){
-      this.SignOut()
-      this.$nextTick(() => {
-        this.$router.push("/");
       });
     },
-
+    onSubmitSignOut() {
+      this.SignOut();
+      this.$nextTick(() => {
+        this.$router.push("/");
+        this.$router.go();
+      });
+    },
     clearForm() {
-      this.post = '',
-      this.privacy = 0;
-    }
+      (this.post = ""), (this.privacy = 0);
+    },
   },
 };
 </script>

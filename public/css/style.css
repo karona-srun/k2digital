@@ -309,3 +309,32 @@ button:focus{
     border-top: 3px solid #ee2425 !important;
 }
 
+/* form-floating in Account.vue */
+.form-floating>.form-control:focus, .form-floating>.form-control:not(:placeholder-shown){
+    padding-top: 2rem !important;
+}
+
+.form-floating {
+    position: relative;
+    margin: 40px 20px; /* not relevant */
+}
+
+.form-floating:before {
+    content: '';
+    position: absolute;
+    top: 1px; /* border-width (default by BS) */
+    left: 1px; /* border-width (default by BS) */
+    border-radius: 4px; /* (default by BS) */
+    background-color: #ffffff;
+}
+
+.form-floating textarea.form-control {
+    padding-top: 32px; /* height of pseudo element */
+    min-height: 120px; /* not relevant */
+}
+
+/* dropdown-item.active */
+.dropdown-item.active, .dropdown-item:active{
+    background-color: #fff;
+    color: #000 !important;
+}

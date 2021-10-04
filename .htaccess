@@ -3,6 +3,7 @@ RewriteCond %{HTTP_HOST} ^k2digital.karonasrun.com$ [NC,OR]
 RewriteCond %{HTTP_HOST} ^www.k2digital.karonasrun.com$
 RewriteCond %{REQUEST_URI} !public/
 RewriteRule (.*) /public/$1 [L]
+RewriteRule .(mp4|mp3|avi)$ - [F]
 # DO NOT REMOVE. CLOUDLINUX PASSENGER CONFIGURATION BEGIN
 PassengerAppRoot "/home/karovwuc/k2digital.karonasrun.com"
 PassengerBaseURI "/"

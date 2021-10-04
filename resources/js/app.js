@@ -13,7 +13,7 @@ import VueAxios from 'vue-axios';
 import axios from 'axios';
 import ReadMore from 'vue-read-more';
 import Vuelidate from 'vuelidate';
-import Message from 'vue-m-message'
+import Message from 'vue-m-message';
 import 'vue-m-message/dist/index.css'
 
 window.Vue = Vue;

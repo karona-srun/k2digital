@@ -42,14 +42,20 @@
           >
         </div>
       </div>
-      <div class="checkbox mb-3 float-left">
-        <label>
+      <div class="checkbox mb-3">
+        <label class="float-left">
           <input type="checkbox" value="remember-me" /> ចងចាំខ្ញុំ
         </label>
       </div>
       <button class="btn btn-lg btn-primary btn-block" type="submit">
         ចូលគណនី
       </button>
+      <label class="mt-2"> ​ឬ </label>
+            <div class="mb-3">
+        <button class="btn btn-link text-small text-start" type="submit">
+        បាត់ពាក្យសម្ងាត់របស់អ្នក?
+      </button>
+            </div>
     </form>
   </div>
 </template>
@@ -86,10 +92,10 @@ export default {
       let result = this.SignIn(data);
       result.then((response) => {
         if (response == "success") {
-          this.$nextTick(() => {
+          // this.$nextTick(() => {
             this.$router.push("/");
             this.$router.go()
-          });
+          // });
         } else {
           this.$message({
             title: "ព្រមាន!",
