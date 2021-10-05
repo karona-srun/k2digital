@@ -2444,7 +2444,9 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     },
     isLoggedInFB: function isLoggedInFB() {
       if (this.$store.getters.isAuthenticated) {
-        return this.$store.getters.auth.has_petools;
+        var _this$$store$getters$;
+
+        return (_this$$store$getters$ = this.$store.getters.auth.has_petools) !== null && _this$$store$getters$ !== void 0 ? _this$$store$getters$ : false;
       }
 
       return false;
@@ -2501,8 +2503,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
       this.SignOut();
       this.$nextTick(function () {
-        _this2.$router.push("/");
-
         _this2.$router.go();
       });
     },
@@ -4575,14 +4575,31 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         }
       };
       var data = axios.request(options).then(function (response) {
-        console.log(response.data.items);
-        return response.data.items;
+        if (response.data.error) {
+          return response.data;
+        } else {
+          return response.data.items;
+        }
       })["catch"](function (error) {
         console.error(error);
       });
       data.then(function (response) {
-        _this.items = response;
-        _this.isLoading = false;
+        console.log(response);
+
+        if (response.error) {
+          _this.$message({
+            title: "ព្រមាន!",
+            message: "Username ដែលបានផ្តល់មិនត្រឹមត្រូវទេ!",
+            iconImg: "https://image.flaticon.com/icons/png/512/753/753345.png" // Error
+
+          });
+
+          _this.items = '';
+          _this.isLoading = false;
+        } else {
+          _this.items = response;
+          _this.isLoading = false;
+        }
       });
     },
     DownloadWithoutWatermark: function DownloadWithoutWatermark(url) {

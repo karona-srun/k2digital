@@ -246,7 +246,7 @@ export default {
     },
     isLoggedInFB: function () {
       if(this.$store.getters.isAuthenticated){
-        return this.$store.getters.auth.has_petools;
+        return this.$store.getters.auth.has_petools ?? false;
       }
       return false;
     },
@@ -295,7 +295,6 @@ export default {
     onSubmitSignOut() {
       this.SignOut();
       this.$nextTick(() => {
-        this.$router.push("/");
         this.$router.go();
       });
     },

@@ -117,15 +117,29 @@ export default {
       let data = axios
         .request(options)
         .then(function (response) {
-          console.log(response.data.items);
-          return response.data.items;
+          if(response.data.error){
+            return response.data
+          }else{
+            return response.data.items;
+          }
         })
         .catch(function (error) {
           console.error(error);
         });
       data.then((response) => {
-        this.items = response;
-        this.isLoading = false;
+        console.log(response);
+        if(response.error){
+          this.$message({
+          title: "ព្រមាន!",
+          message: "Username ដែលបានផ្តល់មិនត្រឹមត្រូវទេ!",
+          iconImg: "https://image.flaticon.com/icons/png/512/753/753345.png", // Error
+        });
+          this.items = '';
+          this.isLoading = false;
+        }else{
+          this.items = response;
+          this.isLoading = false;
+        }
       });
     },
     DownloadWithoutWatermark(url){
