@@ -16,7 +16,7 @@ export const auth = {
         isAuthenticated: state => !!state.access_token,
         facebook_access_token: state => state.facebook_access_token,
         isAuthenticatedFacebook: state => !!state.facebook_access_token,
-        hasPetools: state => state.has_petools
+        hasPetools: state => !!state.has_petools
     },
 
     actions: {

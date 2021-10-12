@@ -2,7 +2,7 @@
   <div class="container mt-1">
     <div class="row justify-content-center">
       <div class="col-md-12 text-center">
-        <h2 class="">សូមស្វាគមន៍ការចូលមកកាន់ PETools</h2>
+        <h2 class="">Coming Soon... PETools</h2>
         <h5 class="mt-5" v-if="!isLoggedIn">ចូល​ទៅ​ក្នុង PETools</h5>
         <h5 v-if="!isLoggedIn">សូមបំពេញ Access Token នៃគណនីហ្វេសប៊ុកដែលអ្នកចង់ប្រើ។</h5>
       </div>

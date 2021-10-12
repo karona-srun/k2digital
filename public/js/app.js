@@ -2444,9 +2444,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     },
     isLoggedInFB: function isLoggedInFB() {
       if (this.$store.getters.isAuthenticated) {
-        var _this$$store$getters$;
-
-        return (_this$$store$getters$ = this.$store.getters.auth.has_petools) !== null && _this$$store$getters$ !== void 0 ? _this$$store$getters$ : false;
+        return this.$store.getters.hasPetools == null ? false : true;
       }
 
       return false;
@@ -5320,7 +5318,7 @@ var auth = {
       return !!state.facebook_access_token;
     },
     hasPetools: function hasPetools(state) {
-      return state.has_petools;
+      return !!state.has_petools;
     }
   },
   actions: {
@@ -48540,7 +48538,7 @@ var render = function() {
     [
       _c("div", { staticClass: "row justify-content-center" }, [
         _c("div", { staticClass: "col-md-12 text-center" }, [
-          _c("h2", {}, [_vm._v("សូមស្វាគមន៍ការចូលមកកាន់ PETools")]),
+          _c("h2", {}, [_vm._v("Coming Soon... PETools")]),
           _vm._v(" "),
           !_vm.isLoggedIn
             ? _c("h5", { staticClass: "mt-5" }, [
@@ -49120,7 +49118,7 @@ var render = function() {
                 _c(
                   "button",
                   {
-                    staticClass: "btn btn-primary",
+                    staticClass: "btn btn-primary mt-2",
                     attrs: { type: "button" },
                     on: {
                       click: function($event) {
@@ -49135,7 +49133,7 @@ var render = function() {
                 _c(
                   "button",
                   {
-                    staticClass: "btn btn-primary",
+                    staticClass: "btn btn-primary mt-2",
                     attrs: { type: "button" },
                     on: {
                       click: function($event) {

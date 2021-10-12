@@ -59,8 +59,8 @@
             <div class="media-body">
               <h6 class="mt-0 fw-bold">{{ item.desc }}</h6>
               <!-- <p for="video" class="text-break">{{ item.video.playAddr[2] }}</p> -->
-              <button type="button" class="btn btn-primary" @click.prevent="Download(item.video.downloadAddr[2])">Download</button>
-              <button type="button" class="btn btn-primary" @click.prevent="DownloadWithoutWatermark(item.video.playAddr[2])">
+              <button type="button" class="btn btn-primary mt-2" @click.prevent="Download(item.video.downloadAddr[2])">Download</button>
+              <button type="button" class="btn btn-primary mt-2" @click.prevent="DownloadWithoutWatermark(item.video.playAddr[2])">
                 Download without watermark
               </button>
             </div>
