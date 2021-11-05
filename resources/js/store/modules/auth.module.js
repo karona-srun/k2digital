@@ -83,6 +83,24 @@ export const auth = {
             });
         },
 
+        // Implementation PE Tools
+
+        async FetchPageList({ commit }, slug) {
+            return await PETools.FetchPageList(slug).then((response) => {
+                return response
+            }).catch(function (response) {
+                console.error("Error: " + response)
+            });
+        },
+
+        async FetchGroupList({ commit }, slug) {
+            return await PETools.FetchGroupList(slug).then((response) => {
+                return response
+            }).catch(function (response) {
+                console.error("Error: " + response)
+            });
+        },
+
         async FetchGroupList({ commit }, slug) {
             return await PETools.FetchGroupList(slug).then((response) => {
                 if(response.data.status == "success"){
@@ -93,6 +111,18 @@ export const auth = {
             }).catch(function () {
                 commit('FETCH_GROUP_LIST', {});
             });
+        },
+
+        async PostToPage({ commit }, slug){
+            return await PETools.PostToPage(slug).then((response) => {
+                return response.data
+            })
+        },
+
+        async PostToGroup({ commit }, slug){
+            return await PETools.PostToGroup(slug).then((response) => {
+                return response.data
+            })
         },
 
         async SignOutPE({ commit }){
@@ -111,6 +141,8 @@ export const auth = {
                 commit('ACCESS_TOKEN', '');
             });
         }
+
+        // Ending implementation PE Tools
     },
 
     mutations: {

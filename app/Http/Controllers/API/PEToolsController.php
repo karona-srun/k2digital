@@ -13,6 +13,9 @@ use FacebookAds\Object\AdCreative;
 use FacebookAds\Object\Ad;
 use FacebookAds\Object\Fields\AdCreativeFields;
 use FacebookAds\Object\Fields\AdFields;
+use Facebook\FileUpload\FileUpload;
+use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Facades\Storage;
 
 class PEToolsController extends Controller
 {
@@ -116,9 +119,10 @@ class PEToolsController extends Controller
       $url = "https://graph.facebook.com/me/groups?access_token=" . $request->facebook_access_token;
       $response = file_get_contents($url);
       $obj = json_decode($response);
+      
       return response()->json([
         'status' => 'success',
-        'data' => $obj
+        'data' => $obj->data,
       ], 200);
     } catch (\Exception $e) {
       return response()->json([
@@ -126,6 +130,44 @@ class PEToolsController extends Controller
         'access_token' => 'Facebook Access Token is invalid',
       ], 200);
     }
+  }
+
+  public function getFacebookGroupMembers(Request $request)
+  {
+    $url = "https://graph.facebook.com/".$request->group_id."/opted_in_members&access_token=" . $request->facebook_access_token;
+    $response = file_get_contents($url);
+    $obj = json_decode($response);
+      
+    return response()->json([
+      'status' => 'success',
+      'data' => $obj->data,
+    ], 200);
+  }
+
+  public function postToGroup(Request $request)
+  {
+    $post_type = $request->post_type;
+    $groups = $request->group_id;
+    $result = array();
+    if($post_type == "text")
+    {
+      foreach ($groups as $group)
+      {
+        $url = "https://graph.facebook.com/".$group."/feed?feilds=message=".$request->message ."&access_token=".$request->facebook_access_token;
+        $response = Http::post($url);
+        $result[] = $response->json();
+      }
+    }
+    else if($post_type == "picture"){
+
+    }
+    else if($post_type == "video"){
+
+    }
+    return response()->json([
+      'status' => 'success',
+      'data' => $result,
+    ], 200);
   }
 
   public function getFacebookKeywords(Request $request)
@@ -138,9 +180,9 @@ class PEToolsController extends Controller
     dd($obj);
   }
 
-  public function getFacebookProfiles(Request $request)
+  public function getFacebookProfile(Request $request)
   {
-    $url = "https://graph.facebook.com/v11.0/me/?fields=id,name,link,picture&access_token=EAAAAZAw4FxQIBAH3yQOLMMjaJPoZCZCzMBot7ZCcsGngyPUtyijWAN6zlb22WPlnAdzeqVZClvn84qBChtFnObxNtYg4ZAZBl28bccx9fpsbU3tsmn77ZAxjRaUwbnW2RJrKKL6qhK8MukI0xJPtUqdnUIGcjnIsoXIoIjiUBZBaCmGCB4n5ZCJnlZC";
+    $url = "https://graph.facebook.com/v11.0/me/?fields=id,name,link,picture&access_token=" . $request->facebook_access_token;
 
     $response = file_get_contents($url);
     $obj = json_decode($response);
@@ -151,37 +193,128 @@ class PEToolsController extends Controller
   {
 
   }
+
+  public function scheduled_publish_time()
+  {
+    // https://graph.facebook.com/{page-id}/feed
+    // ?published=false
+    // &message=A scheduled post
+    // &scheduled_publish_time={unix-time-stamp-of-a-future-date}
+  }
+
+  /**
+   * 
+   * Function Post to facebook page
+   * Features: Text, Link, Images, Videos
+   * 
+   */
+  public function postToPage(Request $request)
+  {
+    $pages = $request->pages;
+    $post_type = $request->post_type;
+    $text = $request->text;
+    $result = [];
+
+    if($post_type == "text")
+    {
+      if($request->link != null){
+        foreach ($pages as $page)
+        {
+          $response = Http::post('https://graph.facebook.com/'.$page['page_id'].'/feed?message='.$request->message.'&link='.$request->link.'&access_token='.$page['access_token']);
+          $result[] = $response->json();
+        }
+      }else{
+        foreach ($pages as $page)
+        {
+          $response = Http::post('https://graph.facebook.com/'.$page['page_id'].'/feed?message='.$request->message.'&access_token='.$page['access_token']);
+          $result[] = $response->json();
+        }
+      }
+    }
+    else if($post_type == "picture")  
+    {
+      foreach (json_decode($request->pages) as $page)
+      {
+        foreach($request->images as $key => $image){
+          $profileImage = date('YmdHis').'_'.time() . "." .$image->getClientOriginalExtension();
+          
+          $path = $image->storeAs('posts/'.Auth::id(), $profileImage, 'public');
+          $url = Storage::url($path);
+
+          $response = Http::post("https://graph.facebook.com/".$page->page_id."/photos?message=". $text ."&url=".url($url)."&access_token=".$page->access_token);
+          $result[] = $response->json();
+        }
+      }
+    }else if($post_type == "video")
+    {
+      foreach ($pages as $page)
+      {
+        $response = Http::post('https://graph.facebook.com/'.$page['page_id'].'/videos');
+        $result[] = $response->json();
+      }
+    }
+    return response()->json($result);
+  }
+
+  /**
+   * 
+   * Function Post to facebook page
+   * Features: Text, Link, Images, Videos
+   * 
+   */
   public function postProfile(Request $request)
   {
     $fb = new \Facebook\Facebook([
-      'app_id' => '594163061937619',
-      'app_secret' => '4a86c9794ba790e74d4d1690048b2b8e',
+      'app_id' => '1665764083630003',
+      'app_secret' => '996f92ec341a00a941df94d80f6ab9bc',
       'default_graph_version' => 'v2.10',
     ]);
-
+    
     $data = [
-      "message" => "testing post"
+      'message' => 'My awesome photo upload example.',
+      'link' =>'https://upload.wikimedia.org/wikipedia/commons/7/78/Image.jpg',
     ];
-
-    // $helper = $fb->getJavaScriptHelper();
-
     
-    // try {
-    //   $accessToken = $helper->getAccessToken();
-    // } catch(\Facebook\Exceptions\FacebookSDKException $e) {
-    //   // There was an error communicating with Graph
-    //   // Or there was a problem validating the signed request
-    //   echo $e->getMessage();
-    //   exit;
-    // }
+    try {
+      // Returns a `Facebook\Response` object
+      $response = $fb->post('/me/feed', $data, 'access_token='. $request->facebook_access_token);
+    } catch(\Facebook\Exceptions\FacebookSDKException $e) {
+      echo 'Graph returned an error: ' . $e->getMessage();
+      exit;
+    } catch(\Facebook\Exceptions\FacebookSDKException $e) {
+      echo 'Facebook SDK returned an error: ' . $e->getMessage();
+      exit;
+    }
     
-    // if ($accessToken) {
-    //   // Logged in.
-    //   $_SESSION['facebook_access_token'] = (string) $accessToken;
-    // }
+    $graphNode = $response->getGraphNode();
+    
+    echo $graphNode;
+  }
 
-    $response = $fb->post('/me/feed', $data, 'EAAAAZAw4FxQIBALDqpWbIvhqbULPTRZCAwxzJswB3utlHFdB94AZCai34AxcLlSGMGNq9nrX1ZArXNFyxNjcqrk1GQfN4lZCPz05kZBZCSfTjcEPnZCtdjAEP745viSznTXXtcKwfH7lS4MhSqU4iPNXv2fbzP74B2ZATMT6fDZBJFSSFzqpbsvgQX');
-    return response()->json($response->getDecodedBody());
+  /**
+   * 
+   * Function Post to facebook page
+   * Features: Text, Link, Images, Videos
+   * 
+   */
+  public function getFacebookPages(Request $request)
+  {
+        $url = "https://graph.facebook.com/me/accounts?access_token=".$request->facebook_access_token;
+
+        $response = file_get_contents( $url );
+        $item = json_decode($response);
+
+        $item = $item->data;
+
+        return array_map(function ($item) {
+            return [
+                'provider' => 'facebook page',
+                'access_token' => $item->access_token,
+                'id' => $item->id,
+                'name' => $item->name,
+                'image' => "https://graph.facebook.com/{$item->id}/picture?type=large"
+            ];
+        }, $item);
   }
 
 

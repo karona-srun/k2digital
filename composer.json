@@ -6,14 +6,17 @@
     "license": "MIT",
     "require": {
         "php": "^7.3|^8.0",
+        "facebook/graph-sdk": "^5.1",
         "fideloper/proxy": "^4.4",
         "fruitcake/laravel-cors": "^2.0",
-        "guzzlehttp/guzzle": "^7.0.1",
+        "guzzlehttp/guzzle": "^7.3",
+        "guzzlehttp/psr7": "^2.1",
         "intervention/image": "^2.6",
         "laravel/framework": "^8.40",
         "laravel/passport": "^10.1",
         "laravel/tinker": "^2.5",
         "laravel/ui": "^3.3",
+        "php-http/curl-client": "^2.2",
         "robert-grubb/tiktok-php": "^1.9"
     },
     "require-dev": {

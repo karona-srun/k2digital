@@ -21,6 +21,8 @@ class PlansSeeder extends Seeder
                 'duration' => '0',
                 'created_by' => 1,
                 'updated_by' => 1,
+                'created_at' => now(),
+                'updated_at' => now()
             ], 
             [
                 'plans' => 'Standard',
@@ -29,6 +31,8 @@ class PlansSeeder extends Seeder
                 'duration' => '1',
                 'created_by' => 1,
                 'updated_by' => 1,
+                'created_at' => now(),
+                'updated_at' => now()
             ],
             [
                 'plans' => 'Advance',
@@ -37,6 +41,8 @@ class PlansSeeder extends Seeder
                 'duration' => '1',
                 'created_by' => 1,
                 'updated_by' => 1,
+                'created_at' => now(),
+                'updated_at' => now()
             ],
             [
                 'plans' => 'Professional',
@@ -45,6 +51,8 @@ class PlansSeeder extends Seeder
                 'duration' => 1,
                 'created_by' => 1,
                 'updated_by' => 1,
+                'created_at' => now(),
+                'updated_at' => now()
             ]
         ];
 

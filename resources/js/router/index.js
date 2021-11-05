@@ -7,9 +7,18 @@ import ChongBanghoh from '../pages/chong_banghoh/Index.vue';
 import PETools from '../pages/petools/Index.vue';
 import Account from '../pages/petools/Account.vue';
 import AccountPE from '../pages/petools/AccountPE.vue';
-import Page from '../pages/petools/Page.vue';
-import Profile from '../pages/petools/Profile.vue';
-import Group from '../pages/petools/Group.vue';
+// Page section
+import PageText from '../pages/petools/pages/Text.vue';
+import PageVideo from '../pages/petools/pages/Video.vue';
+import PageImage from '../pages/petools/pages/Image.vue';
+// Profile section
+import ProfileText from '../pages/petools/profiles/Text.vue';
+import ProfileImage from '../pages/petools/profiles/Image.vue';
+import ProfileVideo from '../pages/petools/profiles/Video.vue';
+// Group section
+import GroupText from '../pages/petools/groups/Text.vue';
+import GroupImage from '../pages/petools/groups/Image.vue';
+import GroupVideo from '../pages/petools/groups/Video.vue';
 
 import TikTok from '../pages/tiktok/Index.vue';
 import SignIn from '../pages/auth/SignIn.vue';
@@ -88,19 +97,49 @@ const router = new VueRouter({
             component: PETools,
         },
         {
-            path: '/pe-tools/profile',
-            name: "គណនី Profiles",
-            component: Profile
+            path: '/pe-tools/profile/post-text',
+            name: "Profile Text - បង្ហោះអត្ថបទ",
+            component: ProfileText
         },
         {
-            path: '/pe-tools/page',
-            name: "ទំព័រ Page",
-            component: Page
+            path: '/pe-tools/profile/post-image',
+            name: "Profile Image - បង្ហោះរូបភាព",
+            component: ProfileImage
         },
         {
-            path: '/pe-tools/group',
-            name: "ក្រុម Group",
-            component: Group
+            path: '/pe-tools/profile/post-video',
+            name: "Profile Video - បង្ហោះវីដេអូ",
+            component: ProfileVideo
+        },
+        {
+            path: '/pe-tools/page/post-text',
+            name: "ទំព័រ Page - បង្ហោះអត្ថបទ",
+            component: PageText
+        },
+        {
+            path: '/pe-tools/page/post-image',
+            name: "ទំព័រ Page - បង្ហោះរូបភាព",
+            component: PageImage
+        },
+        {
+            path: '/pe-tools/page/post-video',
+            name: "ទំព័រ Page - បង្ហោះវិដេអូ",
+            component: PageVideo
+        },
+        {
+            path: '/pe-tools/group/post-text',
+            name: "ក្រុម Group - បង្ហោះអត្ថបទ",
+            component: GroupText
+        },
+        {
+            path: '/pe-tools/group/post-image',
+            name: "ក្រុម Group - បង្ហោះរូបភាព",
+            component: GroupImage
+        },
+        {
+            path: '/pe-tools/group/post-video',
+            name: "ក្រុម Group - បង្ហោះវីដេអូ",
+            component: GroupVideo
         },
         {
             path: '/pe-tools/account',
