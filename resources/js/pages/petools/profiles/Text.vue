@@ -2,7 +2,7 @@
   <div class="mt-2">
     <div class="p-2">
       <h5 class="text-primary">
-        គណនី / Profiles
+        គណនី / Profiles បង្ហោះជាអត្ថបទ
         <button class="btn btn-primary float-right" @click.prevent="backPage">
           <i class="bi bi-backspace-fill"></i> ត្រឡប់ថតក្រោយ
         </button>
@@ -30,14 +30,14 @@
             v-for="(auth, index) in authPetools.petools"
             :key="index"
           >
-            <div class="card p-3 bg-white mb-4 shadow">
+            <div class="card p-3 bg-white mb-4">
               <div class="d-flex justify-content-between mb-4">
                 <div class="user-info">
                   <div class="user-info__img me-2">
                     <img :src="auth.fb_picture" alt="User Img" />
                   </div>
                   <div class="user-info__basic">
-                    <h5 class="mb-0">{{ auth.fb_name }}</h5>
+                    <h6 class="mb-0">{{ auth.fb_name }}</h6>
                     <p class="text-muted mb-0">
                       បានធ្វើបច្ចុប្បន្នភាពចុងក្រោយនៅ {{ auth.updated_at }}
                     </p>

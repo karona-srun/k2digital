@@ -165,10 +165,14 @@
     <div class="container mb-5">
       <router-view></router-view>
     </div>
-
-    <footer class="border-top">
-      <p class="text-center mb-3 mt-3">© K2 ឌីជីថល. រក្សា​រ​សិទ្ធ​គ្រប់យ៉ាង.</p>
-    </footer>
+    <div class="mb-10">
+      
+    </div>
+    <div class="fixed-bottom">
+      <footer class="border-top">
+        <p class="text-center mb-3 mt-3">© K2 ឌីជីថល. រក្សា​រ​សិទ្ធ​គ្រប់យ៉ាង.</p>
+      </footer>
+    </div>
     <div
       class="modal fade"
       id="staticBackdrop"
@@ -307,5 +311,11 @@ export default {
 <style>
 footer {
   bottom: 0;
+}
+.mb-10{
+  margin-bottom: 10rem !important;
+}
+.fixed-bottom{
+  background-color: #fff !important;
 }
 </style>

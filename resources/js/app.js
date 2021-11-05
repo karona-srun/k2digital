@@ -15,6 +15,7 @@ import ReadMore from 'vue-read-more';
 import Vuelidate from 'vuelidate';
 import Message from 'vue-m-message';
 import 'vue-m-message/dist/index.css'
+import VuePaginate from 'vue-paginate';
 
 window.Vue = Vue;
 Vue.use(Message); // will mount `Vue.prototype.$message`
@@ -28,6 +29,7 @@ Vue.config.productionTip = false;
 Vue.use(VueAxios, axios);
 Vue.use(ReadMore);
 Vue.use(Vuelidate);
+Vue.use(VuePaginate);
 
 const app = new Vue({
     store,

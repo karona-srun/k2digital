@@ -28,8 +28,10 @@
         "bootstrap-icons": "^1.5.0",
         "vue-axios": "^3.2.5",
         "vue-m-message": "^3.1.0",
+        "vue-paginate": "^3.6.0",
         "vue-read-more": "^1.1.1",
         "vue-router": "^3.5.2",
+        "vue-upload-multiple-image": "^1.1.6",
         "vuelidate": "^0.7.6",
         "vuex": "^3.6.2",
         "vuex-persistedstate": "^4.0.0"

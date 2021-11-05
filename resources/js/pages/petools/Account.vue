@@ -5,7 +5,7 @@
       <h5>កែប្រែព័ត៌មានរបស់គណនី</h5>
       <form class="form-floating">
         <div class="row">
-          <div class="col">
+          <div class="col-sm-12 col-md-6">
             <div class="form-floating mb-2">
               <input
                 type="text"
@@ -18,7 +18,7 @@
               <label for="floatingInputValue">ឈ្មោះគណនី</label>
             </div>
           </div>
-          <div class="col">
+          <div class="col-sm-12 col-md-6">
             <div class="form-floating mb-2">
               <input
                 type="text"
@@ -44,7 +44,7 @@
           <label for="floatingInputValue">អាស័យ​ដ្ឋាន​អ៊ី​ម៉េ​ល</label>
         </div>
         <div class="row">
-          <div class="col">
+          <div class="col-sm-12 col-md-6">
             <div class="form-floating mb-2">
               <input
                 type="password"
@@ -56,7 +56,7 @@
               <label for="floatingInputValue">ពាក្យសម្ងាត់</label>
             </div>
           </div>
-          <div class="col">
+          <div class="col-sm-12 col-md-6">
             <div class="form-floating mb-2">
               <input
                 type="password"

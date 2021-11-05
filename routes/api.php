@@ -39,8 +39,14 @@ Route::group(['middleware' => 'auth:api'], function() {
 
 Route::post('facebook/submit-access-token', 'API\PEToolsController@submitAccessToken');
 Route::post('facebook/get-facebook-groups', 'API\PEToolsController@getFacebookGroups');
+Route::post('facebook/get-facebook-pages', 'API\PEToolsController@getFacebookPages');
 Route::post('facebook/get-facebook-keywords', 'API\PEToolsController@getFacebookKeywords');
 Route::post('facebook/get-facebook-profile', 'API\PEToolsController@getFacebookProfile');
+Route::post('facebook/post','API\PEToolsController@postProfile');
+
+Route::post('facebook/post-to-page','API\PEToolsController@postToPage');
+Route::post('facebook/post-to-group','API\PEToolsController@postToGroup');
+
 Route::delete('facebook/delete-facebook-token/{id}', 'API\PEToolsController@deleteFacebookToken');
 Route::post('post_profile_ad','API\PEToolsController@postProfile');
 /*

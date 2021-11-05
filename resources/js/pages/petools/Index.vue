@@ -41,7 +41,7 @@
         </div>
       </form>
     </div>
-    <FeaturePETools v-if="isLoggedInFB || hasPETools"></FeaturePETools>
+    <FeaturePETools v-if="!isLoggedIn && isLoggedInFB || hasPETools"></FeaturePETools>
     <div>
       <h6 class="mt-3 mb-3">របៀបប្រើប្រាស់ PE Tools</h6>
       <div class="row">
@@ -63,7 +63,7 @@
             <a
               href="https://mobile.facebook.com/composer/ocelot/async_loader/?publisher=feed"
               target="_blink"
-              >https://mobile.facebook.com/composer/ocelot/async_loader/?publisher=feed</a
+              > Get Access Token</a
             >
             នៅក្នុងកម្មវិធី browser
             អ្នកបានចូលទៅក្នុងគណនីហ្វេសប៊ុកដែលអ្នកចង់ប្រើ។
@@ -173,7 +173,7 @@ export default {
             iconImg: "https://image.flaticon.com/icons/png/512/753/753345.png", // Error
           });
         }
-        else if (response.status == "1") {
+        else if (response.mode == "1") {
           this.isLoading = false;
           this.$message({
             title: "អមអរ!",
