@@ -34,6 +34,7 @@ Route::get('/comment/find-comment-by-post/{id}','Api\CommentController@findComme
 
 Route::get('tiktok', 'API\TikTokController@index');
 Route::post('tiktok/submit', 'API\TikTokController@submitLink');
+Route::post('tiktok/download','API\TikTokController@getVideoWithOutWatermark');
 
 Route::group(['middleware' => 'auth:api'], function() {
 

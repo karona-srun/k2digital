@@ -36,11 +36,11 @@
 class CONFIG {
   
   setAPIURL() {
-    // if( process.env.NODE_ENV == 'development' ){
-    //   return 'http://k2digital.test/api';
-    // }else if( process.env.NODE_ENV == 'production'){
-      return 'https://k2digital.karonasrun.com/api';
-    // }
+    if( process.env.NODE_ENV == 'development' ){
+      return 'http://localhost:8001/api';
+    }else if( process.env.NODE_ENV == 'production'){
+      return 'https://localhost:8001/api';
+    }
   }
 
   responseHeaders() {

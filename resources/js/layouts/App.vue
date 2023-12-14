@@ -163,7 +163,9 @@
       </div>
     </nav>
     <div class="container mb-5">
-      <router-view></router-view>
+      <keep-alive>
+        <router-view></router-view>
+      </keep-alive>
     </div>
     <div class="mb-10">
       

@@ -94,7 +94,7 @@ export default {
         if (response == "success") {
           // this.$nextTick(() => {
             this.$router.push("/");
-            this.$router.go()
+            this.$router.go(100)
           // });
         } else {
           this.$message({

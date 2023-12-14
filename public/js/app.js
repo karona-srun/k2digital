@@ -2450,6 +2450,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
@@ -3106,7 +3108,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
                     // this.$nextTick(() => {
                     _this.$router.push("/");
 
-                    _this.$router.go(); // });
+                    _this.$router.go(100); // });
 
                   } else {
                     _this.$message({
@@ -6087,10 +6089,9 @@ var CONFIG = /*#__PURE__*/function () {
   _createClass(CONFIG, [{
     key: "setAPIURL",
     value: function setAPIURL() {
-      // if( process.env.NODE_ENV == 'development' ){
-      //   return 'http://k2digital.test/api';
-      // }else if( process.env.NODE_ENV == 'production'){
-      return 'https://k2digital.karonasrun.com/api'; // }
+      if (true) {
+        return 'http://k2digital.test/api';
+      } else {}
     }
   }, {
     key: "responseHeaders",
@@ -59969,7 +59970,12 @@ var render = function() {
       ]
     ),
     _vm._v(" "),
-    _c("div", { staticClass: "container mb-5" }, [_c("router-view")], 1),
+    _c(
+      "div",
+      { staticClass: "container mb-5" },
+      [_c("keep-alive", [_c("router-view")], 1)],
+      1
+    ),
     _vm._v(" "),
     _c("div", { staticClass: "mb-10" }),
     _vm._v(" "),
